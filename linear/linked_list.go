@@ -19,12 +19,14 @@ func (s *SinglyLinkedList) AddToHead(val int) {
     var node = &Node{}
     node.Val = val
     node.Next = nil
-    for node.Next != nil {
+
+    if node.Head != nil {
         node.Next = s.Head
     }
     s.Head = node
 }
 
+// Iterate through nodes and print to stdout
 func (s *SinglyLinkedList) Iterate() {
     var node = *Node
     for node = s.Head; node != nil; node = node.Next {
@@ -32,6 +34,7 @@ func (s *SinglyLinkedList) Iterate() {
     }
 }
 
+// LastNode method
 func (s *SinglyLinkedList) LastNode() *Node {
     var node *Node
     var last *Node
@@ -43,20 +46,25 @@ func (s *SinglyLinkedList) LastNode() *Node {
     return last
 }
 
+// AddToEnd method
 func (s *SinglyLinkedList) AddToEnd(val int) {
-    var node &Node{}
+    var node = &Node{}
     node.Val = val
     node.Next = nil
+
     var last *Node
     last = s.LastNode()
+
     if last != nil {
         last.Next = node
     }
 }
 
+// NodeWithValue method
 func (s *SinglyLinkedList) NodeWithValue(val int) *Node {
     var nodeWith = *Node
-    for node := s.Head; node != nil; node = node.Next{
+    var node = *Node
+    for node = s.Head; node != nil; node = node.Next{
         if node.Val == val {
             nodeWith = node
             break
@@ -64,23 +72,27 @@ func (s *SinglyLinkedList) NodeWithValue(val int) *Node {
     }
     return nodeWith
 }
-
+// AddAfter method
 func (s *SinglyLinkedList) AddAfter(nodeVal, val int){
     var node = &Node
-    node.Val = nodeVal
-    nodeWith := s.NodeWithValue(val)
+    node.Val = val
+    node.Next = nil
+
+    var nodeWith = *Node
+    nodeWith = s.NodeWithValue(nodeVal)
     if nodeWith != nil {
         node.Next = nodeWith.Next
         nodeWith.Next = node
     }
 }
 
-
+// main
 func main() {
-    list := SinglyLinkedList{}
+    var list SinglyLinkedList
+    list = SinglyLinkedList{}
     list.AddToHead(1)
     list.AddToHead(2)
-    list.AddToEnd(5)
-    list.AddAfter(1, 7)
+    list.AddToEnd(4)
+    list.AddAfter(1, 9)
     list.Iterate()
 }
