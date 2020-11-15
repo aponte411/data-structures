@@ -167,7 +167,6 @@ func (s *SinglyLinkedList) reverseHelper(curr *Node, next *Node) *Node {
 	return resultNode
 }
 
-
 // SortedInsert
 // O(N) time, O(1) space
 func (s *SinglyLinkedList) SortedInsert(val int) {
@@ -208,9 +207,9 @@ func main() {
 	list.AddAfter(1, 9)
 	fmt.Printf("Count: %v\n", list.count)
 	list.Iterate()
-    list.Reverse()
-    list.Iterate()
-    list.Reverse()
-    list.Iterate()
-    list.Reverse()
+	list.Reverse()
+	list.Iterate()
+	list.Reverse()
+	list.Iterate()
+	list.Reverse()
 }
