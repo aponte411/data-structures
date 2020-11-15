@@ -152,6 +152,7 @@ func (s *SinglyLinkedList) Reverse() {
 func (s *SinglyLinkedList) ReverseRecursively() {
 	s.Head = s.reverseHelper(s.Head, nil)
 }
+
 func (s *SinglyLinkedList) reverseHelper(curr *Node, next *Node) *Node {
 	var resultNode *Node
 	if curr == nil {
@@ -165,6 +166,7 @@ func (s *SinglyLinkedList) reverseHelper(curr *Node, next *Node) *Node {
 	curr.Next = next
 	return resultNode
 }
+
 
 // SortedInsert
 // O(N) time, O(1) space
@@ -206,8 +208,9 @@ func main() {
 	list.AddAfter(1, 9)
 	fmt.Printf("Count: %v\n", list.count)
 	list.Iterate()
-	list.Reverse()
-	list.Iterate()
-	list.Reverse()
-	list.Iterate()
+    list.Reverse()
+    list.Iterate()
+    list.Reverse()
+    list.Iterate()
+    list.Reverse()
 }
