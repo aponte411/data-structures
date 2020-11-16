@@ -65,7 +65,6 @@ func (d *DoublyLinkedList) SortedInsert(val int) {
 	for curr.Next != nil && curr.Val > val {
 		curr = curr.Next
 	}
-
 	// modify tail
 	if curr.Next == nil {
 		d.Tail = newNode
@@ -78,4 +77,55 @@ func (d *DoublyLinkedList) SortedInsert(val int) {
 		curr.Next = newNode
 		newNode.Next.Prev = newNode
 	}
+}
+
+// RemoveHead
+// O(1) time, O(1) space
+func (d *DoublyLinkedList) RemoveHead() (int, bool) {
+	if d.count == 0 {
+		return 0, false
+	}
+	val := d.Head.Val
+	d.Head = d.Head.Next
+	if d.Head == nil {
+		d.Tail = nil
+	} else {
+		d.Head.prev = nil
+	}
+	d.count -= 1
+	return val, true
+}
+
+// RemoveNode method
+// O(N) time, O(1) space
+func (d *DoublyLinkedList) RemoveNode(val int) bool {
+	curr := d.Head
+	if curr == nil {
+		return false
+	}
+	if curr.Val == val {
+		curr = curr.Next
+		d.count -= 1
+		if curr != nil {
+			d.Head = curr
+			d.Head.Prev = nil
+		} else {
+			d.Tail = nil
+		}
+		return true
+	}
+	for curr.Next != nil {
+		if curr.Next.Val == val {
+			curr.Next = curr.Next.Next
+			d.count -= 1
+			if curr.Next == nil {
+				d.Last = curr
+			} else {
+				d.Last.Prev = curr
+			}
+			return true
+		}
+		curr = curr.Next
+	}
+	return false
 }
