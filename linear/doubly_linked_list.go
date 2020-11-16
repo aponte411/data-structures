@@ -2,12 +2,80 @@ package main
 
 import "fmt"
 
-type Node struct {
+// DLNode: Doubly Linked Node
+type DLNode struct {
 	Val  int
-	Prev *Node
-	Next *Node
+	Prev *DLNode
+	Next *DLNode
 }
 
 type DoublyLinkedList struct {
-	Head *Node
+	Head  *DLNode
+	Tail  *DLNode
+	count int
+}
+
+// NodeBetweenValues
+// O(N) time, O(1) space
+func (d *DoublyLinkedList) NodeBetweenValues(first, second int) *DLNode {
+	var nodeWith *DLNode
+	for node := d.Head; node != nil; node = node.Next {
+		if node.Prev == first && node.Next == second {
+			nodeWith = node
+			break
+		}
+	}
+	return nodeWith
+}
+
+// AddToHead method
+// O(1) time, O(1) space
+func (d *DoublyLinkedList) AddToHead(val int) {
+	newNode := &DLNode{val, nil, nil}
+	if d.count == 0 {
+		d.Tail = newNode
+		d.Head = newNode
+	} else {
+		d.Head.Prev = newNode
+		newNode.Next = d.Head
+		d.Head = newNode
+	}
+	d.count += 1
+}
+
+// SortedInsert method
+// O(N) time, O(1) space
+func (d *DoublyLinkedList) SortedInsert(val int) {
+	newNode := &DLNode{val, nil, nil}
+	d.count += 1
+	curr := d.Head
+	// if val is first element
+	if curr == nil {
+		d.Tail = newNode
+		d.Head = newNode
+	}
+	// if val is at beginning
+	if curr.Val <= val {
+		// make newNode head
+		newNode.Next = d.Head
+		d.Head.Prev = newNode
+		d.Head = newNode
+	}
+
+	for curr.Next != nil && curr.Val > val {
+		curr = curr.Next
+	}
+
+	// modify tail
+	if curr.Next == nil {
+		d.Tail = newNode
+		newNode.Prev = curr
+		curr.Next = NewNode
+	} else {
+		// all other general cases
+		newNode.Next = curr.Next
+		newNode.Prev = curr
+		curr.Next = newNode
+		newNode.Next.Prev = newNode
+	}
 }
