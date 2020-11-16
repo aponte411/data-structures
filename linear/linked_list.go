@@ -210,6 +210,17 @@ func (s *SinglyLinkedList) HasCycle() bool {
 	return false
 }
 
+// KtoLastNode method
+// O(N-k) time, O(1) space
+func (s *SinglyLinkedList) KtoLastNode(k int) *Node {
+	node := s.Head
+	kToLast := s.count - k
+	for i := 0; i < kToLast; i++ {
+		node = node.Next
+	}
+	return node
+}
+
 // main
 func main() {
 	list := &SinglyLinkedList{}
