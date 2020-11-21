@@ -221,6 +221,26 @@ func (s *SinglyLinkedList) KtoLastNode(k int) *Node {
 	return node
 }
 
+
+// RemoveNthFromEnd is an alternative method to KtoLastNode
+// O(N) time, O(1) space
+func (s *SinglyLinkedList) RemoveNthFromEnd(n int) *Node {
+    dummy := &Node{0, nil}
+    dummy = s.Head
+    first := dummy
+    second := dummy
+    for i := 1; i <= n +1; i++ {
+        first = first.Next
+    }
+
+    for first != nil {
+        first = first.Next
+        second = second.Next
+    }
+    second.Next = second.Next.Next
+    return dummy.Next
+}
+
 // main
 func main() {
 	list := &SinglyLinkedList{}
