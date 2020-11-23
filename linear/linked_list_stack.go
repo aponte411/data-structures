@@ -62,8 +62,8 @@ func main() {
 		val, _ := s.Pop()
 		fmt.Println(val)
 	}
-    s.Push(10)
-    s.Push(11)
-    s.Push(12)
-    s.Print()
+	s.Push(10)
+	s.Push(11)
+	s.Push(12)
+	s.Print()
 }
