@@ -53,6 +53,32 @@ func (s *StackLinkedList) Print() {
 	}
 }
 
+func IsBalancedParenthesis(expn string) bool {
+	stk := &StackLinkedList{}
+	for _, ch := range expn {
+		switch ch {
+		case "{", "[", "(":
+			stk.Push(ch)
+		case "}":
+			val := stk.Pop()
+			if val != "{" {
+				return false
+			}
+		case "]":
+			val := stk.Pop()
+			if val != "[" {
+				return false
+			}
+		case ")":
+			val := stk.Pop()
+			if val != "(" {
+				return false
+			}
+		}
+	}
+	return stk.IsEmtpy()
+}
+
 func main() {
 	s := &StackLinkedList{}
 	s.Push(1)
@@ -62,8 +88,8 @@ func main() {
 		val, _ := s.Pop()
 		fmt.Println(val)
 	}
-    s.Push(10)
-    s.Push(11)
-    s.Push(12)
-    s.Print()
+	s.Push(10)
+	s.Push(11)
+	s.Push(12)
+	s.Print()
 }
