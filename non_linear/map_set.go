@@ -5,19 +5,19 @@ import "fmt"
 type Set map[interface{}]bool
 
 func (s *Set) Add(key interface{}) {
-	s[key] = true
+	(*s)[key] = true
 }
 
 func (s *Set) Remove(key interface{}) {
-	delete(s, key)
+	delete((*s), key)
 }
 
 func (s *Set) Find(key interface{}) bool {
-	return s[key]
+	return (*s)[key]
 }
 
 func main() {
-	set := &Set{}
+	set := make(Set)
 	set.Add(1)
 	set.Add(2)
 	fmt.Println(set.Find(1))
