@@ -30,6 +30,7 @@ func (h *HashTable) Hash(key int) int {
 }
 
 // Add
+// O(1) time, O(1) space
 func (h *HashTable) Add(key int, value int) {
 	// hash key
 	index := h.Hash(key)
@@ -39,6 +40,8 @@ func (h *HashTable) Add(key int, value int) {
 	h.array[index] = node
 }
 
+// Remove method
+// O(1) time on avg but O(N) in worst case, O(1) time
 func (h *HashTable) Remove(key int) bool {
 	index := h.Hash(key)
 	// get head of linked list
@@ -58,7 +61,8 @@ func (h *HashTable) Remove(key int) bool {
 	return false
 }
 
-// Find
+// Find method
+// O(1) time on avg, O(N) in the worst case
 func (h *HashTable) Find(key int) bool {
 	index := h.Hash(key)
 	for head := h.array[index]; head != nil; head = head.next {
@@ -102,4 +106,5 @@ func main() {
 	hashtable.Add(2, 20)
 	hashtable.Add(3, 30)
 	hashtable.Print()
+	fmt.Println(hashtable.Get(1))
 }
