@@ -1,6 +1,9 @@
 package main
 
-import "github.com/golang-collections/collections/set"
+import (
+	"fmt"
+	"github.com/golang-collections/collections/set"
+)
 
 func main() {
 	set := set.New()
