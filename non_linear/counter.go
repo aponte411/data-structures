@@ -5,21 +5,21 @@ import "fmt"
 type Counter map[interface{}]int
 
 func (c *Counter) Add(key interface{}) {
-	c[key] += 1
+	(*c)[key] += 1
 }
 
 func (c *Counter) Find(key interface{}) bool {
-	_, ok := c[key]
+	_, ok := (*c)[key]
 	return ok
 }
 
 func (c *Counter) Get(key interface{}) (int, bool) {
-	val, ok := c[key]
+	val, ok := (*c)[key]
 	return val, ok
 }
 
 func main() {
-	counter := &Counter{}
+	counter := make(Counter)
 	counter.Add("a")
 	counter.Add("b")
 	counter.Add("a")
