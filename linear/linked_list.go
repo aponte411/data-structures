@@ -133,6 +133,15 @@ func (s *SinglyLinkedList) DeleteNode(val int) bool {
 	return false
 }
 
+// Reverse Print
+func (s *SinglyLinkedList) ReversePrint(node *Node) {
+	if node == nil {
+		return
+	}
+	s.ReversePrint(node.Next)
+	fmt.Println(node.Val)
+}
+
 // Reverse method
 // O(N) time, O(1) space
 func (s *SinglyLinkedList) Reverse() {
@@ -254,5 +263,6 @@ func main() {
 	list.Iterate()
 	list.Reverse()
 	list.Iterate()
-	list.Reverse()
+	// reverse print
+	list.ReversePrint(list.Head)
 }
