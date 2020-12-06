@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/golang-collections/collections/queue"
 	"github.com/golang-collections/collections/stack"
+	"math"
 )
 
 type Node struct {
@@ -171,10 +172,57 @@ func numberOfLeaves(node *Node) int {
 	return numberOfLeaves(node.Left) + numberOfLeaves(node.Right)
 }
 
+// Search
+func (b *BinaryTree) Search(val int) bool {
+	return search(b.Root, val)
+}
+
+func search(node *Node, val int) bool {
+	var left, right bool
+	if node == nil {
+		return false
+	}
+	if node.Val == val {
+		return true
+	}
+	left = search(node.Left, val)
+	if left {
+		return true
+	}
+	right = search(node.Right, val)
+	if right {
+		return true
+	}
+	return false
+}
+
+// FindMax
+func (b *BinaryTree) FindMax() int {
+	return findMax(b.Root)
+}
+func findMax(node *Node) int {
+	if node == nil {
+		return math.MinInt32
+	}
+	max := node.Val
+	left := findMax(node.Left)
+	if left > max {
+		max = left
+	}
+	right := findMax(node.Right)
+	if right > max {
+		max = right
+	}
+	return max
+}
+
 func main() {
 	arr := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 	tree := LevelOrderBinaryTree(arr)
 	tree.LevelOrderPrint()
 	fmt.Printf("Sum of all nodes: %d\n", tree.SumAllNodes())
 	fmt.Printf("Number of leaves: %d\n", tree.NumberOfLeaves())
+	fmt.Printf("Is 10 in binary tree? %v\n", tree.Search(10))
+	fmt.Printf("Max of binary tree: %v\n", tree.FindMax())
+
 }
