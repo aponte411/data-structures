@@ -216,6 +216,38 @@ func findMax(node *Node) int {
 	return max
 }
 
+// IsEqual
+func (b *BinaryTree) IsEqual(t2 *BinaryTree) bool {
+	return isEqual(b.Root, t2.Root)
+}
+func isEqual(node1 *Node, node2 *Node) bool {
+	if node1 == nil && node2 == nil {
+		return true
+	}
+	if node1 == nil || node2 == nil {
+		return false
+	}
+	return node1.Val == node2.Val && isEqual(node1.Left, node2.Left) && isEqual(node1.Right, node2.Right)
+}
+
+// CopyTree
+func (b *BinaryTree) CopyTree() *BinaryTree {
+	tree2 := new(BinaryTree)
+	tree2.Root = copyTree(b.Root)
+	return tree2
+}
+func copyTree(node *Node) *Node {
+	var newNode *Node
+	if node != nil {
+		newNode = new(Node)
+		newNode.Val = node.Val
+		newNode.Left = copyTree(node.Left)
+		newNode.Right = copyTree(node.Right)
+		return newNode
+	}
+	return nil
+}
+
 func main() {
 	arr := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 	tree := LevelOrderBinaryTree(arr)
@@ -224,5 +256,7 @@ func main() {
 	fmt.Printf("Number of leaves: %d\n", tree.NumberOfLeaves())
 	fmt.Printf("Is 10 in binary tree? %v\n", tree.Search(10))
 	fmt.Printf("Max of binary tree: %v\n", tree.FindMax())
+	tree2 := tree.CopyTree()
+	fmt.Printf("Trees Equal?: %v\n", tree.IsEqual(tree2))
 
 }
