@@ -145,8 +145,36 @@ func (b *BinaryTree) LevelOrderPrint() {
 	}
 }
 
+// SumAllNode
+func (b *BinaryTree) SumAllNodes() int {
+	return sumAllNodes(b.Root)
+}
+
+func sumAllNodes(node *Node) int {
+	if node == nil {
+		return 0
+	}
+	return sumAllNodes(node.Left) + sumAllNodes(node.Right) + node.Val
+}
+
+// NumberOfLeaves
+func (b *BinaryTree) NumberOfLeaves() int {
+	return numberOfLeaves(b.Root)
+}
+func numberOfLeaves(node *Node) int {
+	if node == nil {
+		return 0
+	}
+	if node.Left == nil && node.Right == nil {
+		return 1
+	}
+	return numberOfLeaves(node.Left) + numberOfLeaves(node.Right)
+}
+
 func main() {
 	arr := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 	tree := LevelOrderBinaryTree(arr)
 	tree.LevelOrderPrint()
+	fmt.Printf("Sum of all nodes: %d\n", tree.SumAllNodes())
+	fmt.Printf("Number of leaves: %d\n", tree.NumberOfLeaves())
 }
