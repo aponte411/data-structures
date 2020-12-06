@@ -196,7 +196,28 @@ func search(node *Node, val int) bool {
 	return false
 }
 
+// TreeDepth
+func (b *BinaryTree) TreeDepth() int {
+	return treeDepth(b.Root)
+}
+
+func treeDepth(node *Node) int {
+	if node == nil {
+		return 0
+	}
+	left := treeDepth(node.Left)
+	right := treeDepth(node.Right)
+	if left > right {
+		return left + 1
+	} else {
+		return right + 1
+	}
+
+}
+
+// TODO: NEED TO FIX
 // FindMax
+// O(N) time, O(1)
 func (b *BinaryTree) FindMax() int {
 	return findMax(b.Root)
 }
@@ -205,11 +226,11 @@ func findMax(node *Node) int {
 		return math.MinInt32
 	}
 	max := node.Val
-	left := findMax(node.Left)
+	left := treeDepth(node.Left)
 	if left > max {
 		max = left
 	}
-	right := findMax(node.Right)
+	right := treeDepth(node.Right)
 	if right > max {
 		max = right
 	}
@@ -255,7 +276,7 @@ func main() {
 	fmt.Printf("Sum of all nodes: %d\n", tree.SumAllNodes())
 	fmt.Printf("Number of leaves: %d\n", tree.NumberOfLeaves())
 	fmt.Printf("Is 10 in binary tree? %v\n", tree.Search(10))
-	fmt.Printf("Max of binary tree: %v\n", tree.FindMax())
+	fmt.Printf("Binary tree depth: %v\n", tree.TreeDepth())
 	tree2 := tree.CopyTree()
 	fmt.Printf("Trees Equal?: %v\n", tree.IsEqual(tree2))
 
