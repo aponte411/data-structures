@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/golang-collections/collections/queue"
+	"github.com/golang-collections/collections/stack"
+)
 
 type Node struct {
 	Val   int
@@ -80,10 +84,69 @@ func inOrderPrint(root *Node) {
 	inOrderPrint(root.Right)
 }
 
+// BFS with queue
+func (b *BinaryTree) BFSPrint() {
+	queue := new(queue.Queue)
+	var node *Node
+	if b.Root != nil {
+		queue.Enqueue(b.Root)
+	}
+	for queue.Len() != 0 {
+		tmp := queue.Dequeue()
+		node = tmp.(*Node)
+		fmt.Println(node.Val)
+		if node.Left != nil {
+			queue.Enqueue(node.Left)
+		}
+		if node.Right != nil {
+			queue.Enqueue(node.Right)
+		}
+	}
+}
+
+// DFS with stack
+func (b *BinaryTree) DFSPrint() {
+	stack := new(stack.Stack)
+	if b.Root != nil {
+		stack.Push(b.Root)
+	}
+	for stack.Len() != 0 {
+		node := stack.Pop().(*Node)
+		fmt.Println(node.Val)
+		if node.Right != nil {
+			stack.Push(node.Right)
+		}
+		if node.Left != nil {
+			stack.Push(node.Left)
+		}
+	}
+}
+
+// LevelOrderPrint
+
+func (b *BinaryTree) LevelOrderPrint() {
+	queue := new(queue.Queue)
+	if b.Root != nil {
+		queue.Enqueue(b.Root)
+	}
+
+	for queue.Len() != 0 {
+		n := queue.Len()
+		for i := 0; i < n; i++ {
+			node := queue.Dequeue().(*Node)
+			fmt.Println(node.Val)
+			if node.Left != nil {
+				queue.Enqueue(node.Left)
+			}
+			if node.Right != nil {
+				queue.Enqueue(node.Right)
+			}
+		}
+	}
+}
+
 func main() {
 	arr := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 	tree := LevelOrderBinaryTree(arr)
-	tree.PreOrderPrint()
-	fmt.Println()
-	tree.InOrderPrint()
+	tree.LevelOrderPrint()
 }
