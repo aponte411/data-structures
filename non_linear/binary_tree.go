@@ -50,8 +50,40 @@ func preOrderPrint(root *Node) {
 	preOrderPrint(root.Right)
 }
 
+// Post-order
+func (b *BinaryTree) PostOrderPrint() {
+	fmt.Println("Post-order")
+	postOrderPrint(b.Root)
+}
+
+func postOrderPrint(root *Node) {
+	if root == nil {
+		return
+	}
+	postOrderPrint(root.Left)
+	postOrderPrint(root.Right)
+	fmt.Println(root.Val)
+}
+
+// In-order
+func (b *BinaryTree) InOrderPrint() {
+	fmt.Println("In-order")
+	inOrderPrint(b.Root)
+}
+
+func inOrderPrint(root *Node) {
+	if root == nil {
+		return
+	}
+	inOrderPrint(root.Left)
+	fmt.Println(root.Val)
+	inOrderPrint(root.Right)
+}
+
 func main() {
 	arr := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 	tree := LevelOrderBinaryTree(arr)
 	tree.PreOrderPrint()
+	fmt.Println()
+	tree.InOrderPrint()
 }
