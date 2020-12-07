@@ -269,6 +269,27 @@ func copyTree(node *Node) *Node {
 	return nil
 }
 
+// MaxDepth
+func maxDepth(node *Node) int {
+	if node == nil {
+		return 0
+	}
+	if node.Left == nil && node.Right == nil {
+		return 1
+	}
+	left := maxDepth(node.Left)
+	right := maxDepth(node.Right)
+	return max(left, right) + 1
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	} else {
+		return b
+	}
+}
+
 func main() {
 	arr := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 	tree := LevelOrderBinaryTree(arr)
@@ -279,5 +300,6 @@ func main() {
 	fmt.Printf("Binary tree depth: %v\n", tree.TreeDepth())
 	tree2 := tree.CopyTree()
 	fmt.Printf("Trees Equal?: %v\n", tree.IsEqual(tree2))
+	fmt.Printf("Max Depth: %v\n", maxDepth(tree.Root))
 
 }
