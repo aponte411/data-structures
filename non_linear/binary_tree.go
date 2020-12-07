@@ -269,6 +269,28 @@ func copyTree(node *Node) *Node {
 	return nil
 }
 
+// HasPathSum
+func (b *BinaryTree) HasPathSum(sum int) bool {
+	hasPath := hasPathSum(b.Root, sum)
+	if hasPath {
+		return true
+	} else {
+		return false
+	}
+}
+func hasPathSum(node *Node, sum int) bool {
+	if node == nil {
+		return false
+	}
+	sum -= node.Val
+	if node.Left == nil && node.Right == nil {
+		return sum == 0
+	}
+	left := hasPathSum(node.Left, sum)
+	right := hasPathSum(node.Right, sum)
+	return left || right
+}
+
 // MaxDepth
 func maxDepth(node *Node) int {
 	if node == nil {
@@ -301,5 +323,6 @@ func main() {
 	tree2 := tree.CopyTree()
 	fmt.Printf("Trees Equal?: %v\n", tree.IsEqual(tree2))
 	fmt.Printf("Max Depth: %v\n", maxDepth(tree.Root))
+	fmt.Printf("Is there a path sum equal to 7: %v\n", tree.HasPathSum(7))
 
 }
