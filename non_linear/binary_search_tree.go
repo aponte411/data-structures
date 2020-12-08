@@ -65,9 +65,42 @@ func add(node *Node, val int) *Node {
 	return node
 }
 
+// FindIterative
+func (b *BinarySearchTree) FindIterative(val int) bool {
+	node := b.Root
+	for node != nil {
+		if node.Val == val {
+			return true
+		} else if val < node.Val {
+			node = node.Left
+		} else {
+			node = node.Right
+		}
+	}
+	return false
+}
+
+// FindRecursive
+func (b *BinarySearchTree) FindRecursive(val int) bool {
+	return search(b.Root, val)
+}
+func search(node *Node, val int) bool {
+	if node == nil {
+		return true
+	}
+	if node.Val == val {
+		return true
+	} else if val < node.Val {
+		return search(node.Left, val)
+	} else {
+		return search(node.Right, val)
+	}
+}
+
 func main() {
 	arr := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 	tree := CreateBinarySearchTree(arr)
 	tree.Add(66)
 	tree.InOrderPrint()
+	fmt.Printf("Is 66 present in BST? %v\n", tree.FindRecursive(66))
 }

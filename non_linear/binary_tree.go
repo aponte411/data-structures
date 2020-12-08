@@ -25,11 +25,11 @@ func LevelOrderBinaryTree(arr []int) *BinaryTree {
 	return tree
 }
 func levelOrderBinaryTree(arr []int, start, size int) *Node {
-    // or node := new(Node)
-    // node.Val = arr[start]
-    // node.Left = nil
-    // node.Right = nil
-    curr := &Node{arr[start], nil, nil}
+	// or node := new(Node)
+	// node.Val = arr[start]
+	// node.Left = nil
+	// node.Right = nil
+	curr := &Node{arr[start], nil, nil}
 	left := 2*start + 1
 	right := 2*start + 2
 	if left < size {
