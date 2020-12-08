@@ -48,13 +48,14 @@ func inOrderPrint(node *Node) {
 // of type *T, which is equivalent to &T{}
 // make(T) returns an initialized value of type T, which is
 // for slices, maps, and channels
+
+// O(N) time, O(N) space
 func (b *BinarySearchTree) Add(val int) {
 	b.Root = add(b.Root, val)
 }
 func add(node *Node, val int) *Node {
 	if node == nil {
-		node = new(Node)
-		node.Val = val
+		node := &Node{val, nil, nil}
 		return node
 	}
 	if val < node.Val {
@@ -81,6 +82,8 @@ func (b *BinarySearchTree) FindIterative(val int) bool {
 }
 
 // FindRecursive
+// O(log n) average case time, O(H) worst case time
+// O(log n) average case space, O(H) worst case space
 func (b *BinarySearchTree) FindRecursive(val int) bool {
 	return search(b.Root, val)
 }
