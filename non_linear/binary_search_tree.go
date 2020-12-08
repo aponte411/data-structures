@@ -100,10 +100,65 @@ func search(node *Node, val int) bool {
 	}
 }
 
+// FindMin
+func (b *BinarySearchTree) FindMin() (int, bool) {
+	node := b.Root
+	if node == nil {
+		fmt.Println("EmptyTreeException")
+		return 0, false
+	}
+	for node.Left != nil {
+		node = node.Left
+	}
+	return node.Val, true
+}
+
+// FindMinNode
+func (b *BinarySearchTree) FindMinNode() *Node {
+	node := b.Root
+	if node == nil {
+		fmt.Println("EmptyTreeException")
+		return nil
+	}
+	for node.Left != nil {
+		node = node.Left
+	}
+	return node
+}
+
+// FindMax
+func (b *BinarySearchTree) FindMax() (int, bool) {
+	node := b.Root
+	if node == nil {
+		fmt.Println("EmptyTreeException")
+		return 0, false
+	}
+	for node.Right != nil {
+		node = node.Right
+	}
+	return node.Val, true
+}
+
+// FindMinNode
+func (b *BinarySearchTree) FindMaxNode() *Node {
+	node := b.Root
+	if node == nil {
+		fmt.Println("EmptyTreeException")
+		return nil
+	}
+	for node.Right != nil {
+		node = node.Right
+	}
+	return node
+}
+
 func main() {
 	arr := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 	tree := CreateBinarySearchTree(arr)
 	tree.Add(66)
 	tree.InOrderPrint()
 	fmt.Printf("Is 66 present in BST? %v\n", tree.FindRecursive(66))
+	fmt.Printf("Min %v\n", tree.FindMinNode().Val)
+	fmt.Printf("Max %v\n", tree.FindMaxNode().Val)
+
 }
