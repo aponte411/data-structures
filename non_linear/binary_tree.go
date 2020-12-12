@@ -313,6 +313,23 @@ func max(a, b int) int {
 	}
 }
 
+const MaxUint = ^uint(0)
+const MinUint = 0
+const MaxInt = int(^uint(0) >> 1)
+const MinInt = -MaxInt - 1
+
+// IsBinarySearchTree
+func IsBinarySearchTree(node *Node, min int, max int) bool {
+	if node == nil {
+		return true
+	}
+
+	if node.Val <= min || node.Val >= max {
+		return false
+	}
+	return IsBinarySearchTree(node.Left, min, node.Val) && IsBinarySearchTree(node.Right, node.Val, max)
+}
+
 func main() {
 	arr := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 	tree := LevelOrderBinaryTree(arr)
@@ -325,5 +342,6 @@ func main() {
 	fmt.Printf("Trees Equal?: %v\n", tree.IsEqual(tree2))
 	fmt.Printf("Max Depth: %v\n", maxDepth(tree.Root))
 	fmt.Printf("Is there a path sum equal to 7: %v\n", tree.HasPathSum(7))
+	fmt.Printf("Is tree valid binary search tree?: %v\n", IsBinarySearchTree(tree.Root, MinInt, MaxInt))
 
 }

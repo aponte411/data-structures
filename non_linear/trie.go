@@ -18,7 +18,7 @@ func (t *Trie) Insert(word string) {
 	for char := range word {
 		ch := string(char)
 		if _, ok := node.Children[ch]; !ok {
-            node.Children[ch] = &TrieNode{end: false}
+			node.Children[ch] = &TrieNode{end: false}
 		}
 		node = node.Children[ch]
 	}
