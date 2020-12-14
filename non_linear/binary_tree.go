@@ -216,6 +216,16 @@ func treeDepth(node *Node) int {
 
 }
 
+// IsBalancedTree
+func IsBalanced(node *Node) bool {
+	if node == nil {
+		return true
+	}
+	left := treeDepth(node.Left)
+	right := treeDepth(node.Right)
+	return math.Abs(float64(left)-float64(right)) < 2 && IsBalanced(node.Left) && IsBalanced(node.Right)
+}
+
 // TODO: NEED TO FIX
 // FindMax
 // O(N) time, O(1)
@@ -343,5 +353,6 @@ func main() {
 	fmt.Printf("Max Depth: %v\n", maxDepth(tree.Root))
 	fmt.Printf("Is there a path sum equal to 7: %v\n", tree.HasPathSum(7))
 	fmt.Printf("Is tree valid binary search tree?: %v\n", IsBinarySearchTree(tree.Root, MinInt, MaxInt))
+	fmt.Printf("Is tree balanced?: %v\n", IsBalanced(tree.Root))
 
 }

@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 type Node struct {
 	Val   int
@@ -152,6 +155,30 @@ func (b *BinarySearchTree) FindMaxNode() *Node {
 	return node
 }
 
+// height
+func height(node *Node) int {
+	if node == nil {
+		return 0
+	}
+	left := height(node.Left)
+	right := height(node.Right)
+	if left > right {
+		return left + 1
+	} else {
+		return right + 1
+	}
+}
+
+// IsBalanced
+func IsBalanced(node *Node) bool {
+	if node == nil {
+		return true
+	}
+	left := height(node.Left)
+	right := height(node.Right)
+	return math.Abs(float64(left)-float64(right)) < 2 && IsBalanced(node.Left) && IsBalanced(node.Right)
+}
+
 func main() {
 	arr := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 	tree := CreateBinarySearchTree(arr)
@@ -160,5 +187,6 @@ func main() {
 	fmt.Printf("Is 66 present in BST? %v\n", tree.FindRecursive(66))
 	fmt.Printf("Min %v\n", tree.FindMinNode().Val)
 	fmt.Printf("Max %v\n", tree.FindMaxNode().Val)
+	fmt.Printf("Is balanced? %v\n", IsBalanced(tree.Root))
 
 }
