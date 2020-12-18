@@ -86,6 +86,31 @@ func inOrderPrint(root *Node) {
 	inOrderPrint(root.Right)
 }
 
+// Iterative InOrderTraversal
+func InOrderTraversal(root *Node) []int {
+	if root == nil {
+		return nil
+	}
+	stack := make([]*Node, 0)
+	res := make([]int, 0)
+	curr := root
+	for curr != nil || len(stack) != 0 {
+		// go all the way to the left
+		for curr != nil {
+			stack = append(stack, curr)
+			curr = curr.Left
+		}
+		// pop the stack
+		curr = stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		// add to results
+		res = append(res, curr.Val)
+		// go to the right
+		curr = curr.Right
+	}
+	return res
+}
+
 // BFS with queue
 func (b *BinaryTree) BFSPrint() {
 	queue := new(queue.Queue)
@@ -354,5 +379,6 @@ func main() {
 	fmt.Printf("Is there a path sum equal to 7: %v\n", tree.HasPathSum(7))
 	fmt.Printf("Is tree valid binary search tree?: %v\n", IsBinarySearchTree(tree.Root, MinInt, MaxInt))
 	fmt.Printf("Is tree balanced?: %v\n", IsBalanced(tree.Root))
+	fmt.Printf("In order traversal: %v\n", InOrderTraversal(tree.Root))
 
 }
