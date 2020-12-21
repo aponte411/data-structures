@@ -349,8 +349,7 @@ func max(a, b int) int {
 }
 
 const MaxUint = ^uint(0)
-const MinUint = 0
-const MaxInt = int(^uint(0) >> 1)
+const MaxInt = int(MaxUint >> 1)
 const MinInt = -MaxInt - 1
 
 // IsBinarySearchTree
@@ -377,7 +376,7 @@ func main() {
 	fmt.Printf("Trees Equal?: %v\n", tree.IsEqual(tree2))
 	fmt.Printf("Max Depth: %v\n", maxDepth(tree.Root))
 	fmt.Printf("Is there a path sum equal to 7: %v\n", tree.HasPathSum(7))
-	fmt.Printf("Is tree valid binary search tree?: %v\n", IsBinarySearchTree(tree.Root, MinInt, MaxInt))
+	fmt.Printf("Is tree valid binary search tree?: %v\n", IsBinarySearchTree(tree.Root, math.MinInt64, math.MaxInt64))
 	fmt.Printf("Is tree balanced?: %v\n", IsBalanced(tree.Root))
 	fmt.Printf("In order traversal: %v\n", InOrderTraversal(tree.Root))
 

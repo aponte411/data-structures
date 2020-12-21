@@ -142,7 +142,50 @@ func (b *BinarySearchTree) FindMax() (int, bool) {
 	return node.Val, true
 }
 
-// FindMinNode
+// SecondLargestNode
+// Because we cant assume the BST is balanced, the parent of the rightmost parent
+// isnt guaranteed to be the second largest, because the largest element can have a left
+// subtree. The second largest does have a left subtree if the largest does not have a left
+// subtree. So if the largest element does have a left subtree recurse through the left subtree
+// and find the max.
+func findSecondLargest(root *Node) int {
+	curr := root
+	for curr != nil {
+		// If were at the largest node (rightmost) and there is a left subtree
+		// recurse through left subtree and find second largest (max of left subtree)
+		if curr.Left != nil && curr.Right == nil {
+			return findMaxRecursive(curr.Left)
+		}
+		// If were at the second to last node and theres no left or right subtrees
+		// we've found the second largest value
+		if curr.Right != nil && curr.Right.Left == nil && curr.Right.Right == nil {
+			return curr.Val
+		}
+		// Else the second largest is somewhere in that subtree
+		curr = curr.Right
+	}
+	return curr.Val
+}
+
+// findMaxRecursive
+// O(n) time, O(n) space, iterative has O(1) space since it traverses using
+// variables, e.g. curr = curr.Right
+func findMaxRecursive(root *Node) int {
+	if root == nil {
+		fmt.Println("EmptyTreeException")
+		return 0
+	}
+	// The max node is the rightmost node so if there is a right
+	// child, that node and the subtree below it are all greater than
+	// the current, so step down to this child and recurse
+	if root.Right != nil {
+		return findMaxRecursive(root.Right)
+	} else {
+		return root.Val
+	}
+}
+
+// FindMaxNode
 func (b *BinarySearchTree) FindMaxNode() *Node {
 	node := b.Root
 	if node == nil {
@@ -188,5 +231,6 @@ func main() {
 	fmt.Printf("Min %v\n", tree.FindMinNode().Val)
 	fmt.Printf("Max %v\n", tree.FindMaxNode().Val)
 	fmt.Printf("Is balanced? %v\n", IsBalanced(tree.Root))
+	fmt.Printf("Second largest node %v\n", findSecondLargest(tree.Root))
 
 }
