@@ -145,9 +145,10 @@ func (b *BinarySearchTree) FindMax() (int, bool) {
 // SecondLargestNode
 // Because we cant assume the BST is balanced, the parent of the rightmost parent
 // isnt guaranteed to be the second largest, because the largest element can have a left
-// subtree. The second largest does have a left subtree if the largest does not have a left
-// subtree. So if the largest element does have a left subtree recurse through the left subtree
-// and find the max.
+// subtree. This simplies the problem into two cases: the largest node has a left subtree or
+// the largest node does not have a left subtree.
+// So if the largest element does have a left subtree recurse through the left subtree
+// and find the max. Else weve found the second largest node.
 // O(h) time O(log n) if the BST is balanced; O(h) space (use iterative findmax for constant space)
 func findSecondLargest(root *Node) int {
 	curr := root
