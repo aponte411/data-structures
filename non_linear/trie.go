@@ -64,6 +64,31 @@ func (t *Trie) StartsWith(prefix string) bool {
 	return true
 }
 
+// Return TopWords
+func (t *Trie) ReturnTopWordsWithPrefix(prefix string) []string {
+    node := t.root
+	for i := 0; i < len(prefix); i++ {
+		ch := prefix[i]
+		if _, ok := node.children[ch]; !ok {
+			return []string{}
+		}
+		node = node.children[ch]
+	}
+	topWords := make([]string, 0)
+	dfs(node, prefix, &topWords)
+	return topWords
+}
+
+// DFS
+func dfs(node *TrieNode, prefix string, res *[]string) {
+	if node == nil {
+		*res = append(*res, prefix)
+	}
+	for child := range node.children {
+		dfs(node.children[child], prefix+string(child), res)
+	}
+}
+
 func main() {
 	trie := InitTrie()
 	word := "David"
