@@ -4,59 +4,62 @@ import "fmt"
 
 // Use cases: autocomplete, search, suggestions, etc.
 type TrieNode struct {
-	children map[string]*TrieNode
-	end      bool
+	children map[byte]*TrieNode
+	word     bool
 }
 
 type Trie struct {
-	Root *TrieNode
+	root *TrieNode
 }
 
 func InitTrie() *Trie {
 	root := &TrieNode{
-		children: map[string]*TrieNode{},
-		end:      false,
+		children: make(map[byte]*TrieNode),
+		word:     false,
 	}
 	return &Trie{
-		Root: root,
+		root: root,
 	}
 }
 
 // O(N) time, O(N) space?
 func (t *Trie) Insert(word string) {
-	node := t.Root
-	for _, char := range word {
-		ch := string(char)
-		if _, ok := node.children[ch]; !ok {
-			node.children[ch] = &TrieNode{}
+	node := t.root
+	for i := 0; i < len(word); i++ {
+		char := word[i]
+		if _, ok := node.children[char]; !ok {
+			node.children[char] = &TrieNode{
+				children: make(map[byte]*TrieNode),
+				word:     false,
+			}
 		}
-		node = node.children[ch]
+		node = node.children[char]
 	}
-	node.end = true
+	node.word = true
 }
 
 // O(N) time, O(1) space
 func (t *Trie) Search(word string) bool {
-	node := t.Root
-	for _, char := range word {
-		ch := string(char)
-		if _, ok := node.children[ch]; !ok {
+	node := t.root
+	for i := 0; i < len(word); i++ {
+		char := word[i]
+		if _, ok := node.children[char]; !ok {
 			return false
 		}
-		node = node.children[ch]
+		node = node.children[char]
 	}
-	return node.end
+	return node.word
 }
 
 // O(N) time, O(1) space
 func (t *Trie) StartsWith(prefix string) bool {
-	node := t.Root
-	for _, char := range prefix {
-		ch := string(char)
-		if _, ok := node.children[ch]; !ok {
+	node := t.root
+	for i := 0; i < len(prefix); i++ {
+		char := prefix[i]
+		if _, ok := node.children[char]; !ok {
 			return false
 		}
-		node = node.children[ch]
+		node = node.children[char]
 	}
 	return true
 }
@@ -65,5 +68,5 @@ func main() {
 	trie := InitTrie()
 	word := "David"
 	trie.Insert(word)
-	fmt.Println(trie.Root.children)
+	fmt.Println(trie.StartsWith("Da"))
 }
