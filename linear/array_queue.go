@@ -1,47 +1,39 @@
-package main
+package linear
 
 import "fmt"
 
 const Capacity = 100
 
-type Queue struct {
+type ArrayQueue struct {
 	size  int
 	data  [Capacity]interface{}
 	front int
 	back  int
 }
 
-func (q *Queue) Enqueue(val interface{}) {
-	if q.size >= Capacity {
+func (a *ArrayQueue) Enqueue(val interface{}) {
+	if a.size >= Capacity {
 		return
 	}
-	q.size += 1
-	q.data[q.back] = val
-	q.back = (q.back + 1) % (Capacity - 1)
+	a.size += 1
+	a.data[a.back] = val
+	a.back = (a.back + 1) % (Capacity - 1)
 }
 
-func (q *Queue) Dequeue() interface{} {
-	var val interface{}
-	if q.size <= 0 {
+func (a *ArrayQueue) Dequeue() interface{} {
+	if a.size <= 0 {
 		return val
 	}
-	q.size -= 1
-	val = q.data[q.front]
-	q.front = (q.front + 1) % (Capacity - 1)
+	a.size -= 1
+    val := a.data[a.front]
+	a.front = (a.front + 1) % (Capacity - 1)
 	return val
 }
 
-func (q *Queue) IsEmpty() bool {
-	return q.size == 0
+func (a *ArrayQueue) IsEmpty() bool {
+	return a.size == 0
 }
-func (q *Queue) Length() int {
-	return q.size
+func (a *ArrayQueue) Length() int {
+	return a.size
 }
 
-func main() {
-	q := &Queue{}
-	q.Enqueue(1)
-	q.Enqueue(2)
-	q.Enqueue(3)
-	fmt.Println(q.Dequeue())
-}
