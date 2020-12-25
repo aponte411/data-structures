@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/golang-collections/collections/queue"
 	"github.com/golang-collections/collections/stack"
+	"math"
 )
 
 type BinaryTreeNode struct {
@@ -113,7 +114,6 @@ func InOrderTraversal(root *BinaryTreeNode) []int {
 // BFS with queue
 func (b *BinaryTree) BFSPrint() {
 	queue := new(queue.Queue)
-	var node *BinaryTreeNode
 	if b.Root != nil {
 		queue.Enqueue(b.Root)
 	}
@@ -240,13 +240,13 @@ func treeDepth(node *BinaryTreeNode) int {
 }
 
 // IsBalancedTree
-func IsBalanced(node *BinaryTreeNode) bool {
+func IsBTBalanced(node *BinaryTreeNode) bool {
 	if node == nil {
 		return true
 	}
 	left := treeDepth(node.Left)
 	right := treeDepth(node.Right)
-	return math.Abs(float64(left)-float64(right)) < 2 && IsBalanced(node.Left) && IsBalanced(node.Right)
+	return math.Abs(float64(left)-float64(right)) < 2 && IsBTBalanced(node.Left) && IsBTBalanced(node.Right)
 }
 
 // TODO: NEED TO FIX
@@ -286,18 +286,18 @@ func isEqual(node1 *BinaryTreeNode, node2 *BinaryTreeNode) bool {
 }
 
 // CopyTree
-func (b *BinaryTree) CopyTree() *BinaryTree {
+func (b *BinaryTree) CopyBinaryTree() *BinaryTree {
 	tree2 := new(BinaryTree)
-	tree2.Root = copyTree(b.Root)
+	tree2.Root = copyBinaryTree(b.Root)
 	return tree2
 }
-func copyTree(node *BinaryTreeNode) *BinaryTreeNode {
-	var newNode *Node
+func copyBinaryTree(node *BinaryTreeNode) *BinaryTreeNode {
+	var newNode *BinaryTreeNode
 	if node != nil {
 		newNode = new(BinaryTreeNode)
 		newNode.Val = node.Val
-		newNode.Left = copyTree(node.Left)
-		newNode.Right = copyTree(node.Right)
+		newNode.Left = copyBinaryTree(node.Left)
+		newNode.Right = copyBinaryTree(node.Right)
 		return newNode
 	}
 	return nil

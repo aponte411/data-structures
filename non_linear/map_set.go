@@ -1,7 +1,5 @@
 package non_linear
 
-import "fmt"
-
 type Set map[interface{}]bool
 
 func (s *Set) Add(key interface{}) {

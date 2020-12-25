@@ -35,17 +35,17 @@ func createBinarySearchTree(arr []int, start, end int) *BinarySearchTreeNode {
 
 }
 
-func (b *BinarySearchTree) InOrderPrint() {
+func (b *BinarySearchTree) InOrderBST() {
 	fmt.Println("In-order")
-	inOrderPrint(b.Root)
+	inOrderBST(b.Root)
 }
-func inOrderPrint(node *BinarySearchTreeNode) {
+func inOrderBST(node *BinarySearchTreeNode) {
 	if node == nil {
 		return
 	}
-	inOrderPrint(node.Left)
+	inOrderBST(node.Left)
 	fmt.Println(node.Val)
-	inOrderPrint(node.Right)
+	inOrderBST(node.Right)
 }
 
 // TODO: keep in mind that new() returns a pointer to a value
@@ -90,18 +90,18 @@ func (b *BinarySearchTree) FindIterative(val int) bool {
 // O(log n) average case time, O(H) worst case time
 // O(log n) average case space, O(H) worst case space
 func (b *BinarySearchTree) FindRecursive(val int) bool {
-	return search(b.Root, val)
+	return searchBST(b.Root, val)
 }
-func search(node *BinarySearchTreeNode, val int) bool {
+func searchBST(node *BinarySearchTreeNode, val int) bool {
 	if node == nil {
 		return true
 	}
 	if node.Val == val {
 		return true
 	} else if val < node.Val {
-		return search(node.Left, val)
+		return searchBST(node.Left, val)
 	} else {
-		return search(node.Right, val)
+		return searchBST(node.Right, val)
 	}
 }
 
@@ -217,11 +217,11 @@ func height(node *BinarySearchTreeNode) int {
 }
 
 // IsBalanced
-func IsBalanced(node *BinarySearchTreeNode) bool {
+func IsBSTBalanced(node *BinarySearchTreeNode) bool {
 	if node == nil {
 		return true
 	}
 	left := height(node.Left)
 	right := height(node.Right)
-	return math.Abs(float64(left)-float64(right)) < 2 && IsBalanced(node.Left) && IsBalanced(node.Right)
+	return math.Abs(float64(left)-float64(right)) < 2 && IsBSTBalanced(node.Left) && IsBSTBalanced(node.Right)
 }

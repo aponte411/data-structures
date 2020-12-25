@@ -1,9 +1,5 @@
 package non_linear
 
-import (
-	"container/heap"
-)
-
 type IntegerHeap []int
 
 // Length of integer heap

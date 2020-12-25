@@ -1,7 +1,5 @@
 package non_linear
 
-import "fmt"
-
 type Counter map[interface{}]int
 
 func (c *Counter) Add(key interface{}) {

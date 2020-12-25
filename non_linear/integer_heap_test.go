@@ -1,6 +1,7 @@
 package non_linear
 
 import (
+	"container/heap"
 	"fmt"
 	"testing"
 )
