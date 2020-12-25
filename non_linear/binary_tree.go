@@ -1,20 +1,19 @@
-package main
+package non_linear
 
 import (
 	"fmt"
 	"github.com/golang-collections/collections/queue"
 	"github.com/golang-collections/collections/stack"
-	"math"
 )
 
-type Node struct {
+type BinaryTreeNode struct {
 	Val   int
-	Left  *Node
-	Right *Node
+	Left  *BinaryTreeNode
+	Right *BinaryTreeNode
 }
 
 type BinaryTree struct {
-	Root *Node
+	Root *BinaryTreeNode
 }
 
 // Create a complete binary tree
@@ -24,12 +23,12 @@ func LevelOrderBinaryTree(arr []int) *BinaryTree {
 	tree.Root = levelOrderBinaryTree(arr, 0, len(arr))
 	return tree
 }
-func levelOrderBinaryTree(arr []int, start, size int) *Node {
+func levelOrderBinaryTree(arr []int, start, size int) *BinaryTreeNode {
 	// or node := new(Node)
 	// node.Val = arr[start]
 	// node.Left = nil
 	// node.Right = nil
-	curr := &Node{arr[start], nil, nil}
+	curr := &BinaryTreeNode{arr[start], nil, nil}
 	left := 2*start + 1
 	right := 2*start + 2
 	if left < size {
@@ -47,7 +46,7 @@ func (b *BinaryTree) PreOrderPrint() {
 	preOrderPrint(b.Root)
 }
 
-func preOrderPrint(root *Node) {
+func preOrderPrint(root *BinaryTreeNode) {
 	if root == nil {
 		return
 	}
@@ -62,7 +61,7 @@ func (b *BinaryTree) PostOrderPrint() {
 	postOrderPrint(b.Root)
 }
 
-func postOrderPrint(root *Node) {
+func postOrderPrint(root *BinaryTreeNode) {
 	if root == nil {
 		return
 	}
@@ -77,7 +76,7 @@ func (b *BinaryTree) InOrderPrint() {
 	inOrderPrint(b.Root)
 }
 
-func inOrderPrint(root *Node) {
+func inOrderPrint(root *BinaryTreeNode) {
 	if root == nil {
 		return
 	}
@@ -87,11 +86,11 @@ func inOrderPrint(root *Node) {
 }
 
 // Iterative InOrderTraversal
-func InOrderTraversal(root *Node) []int {
+func InOrderTraversal(root *BinaryTreeNode) []int {
 	if root == nil {
 		return nil
 	}
-	stack := make([]*Node, 0)
+	stack := make([]*BinaryTreeNode, 0)
 	res := make([]int, 0)
 	curr := root
 	for curr != nil || len(stack) != 0 {
@@ -114,13 +113,12 @@ func InOrderTraversal(root *Node) []int {
 // BFS with queue
 func (b *BinaryTree) BFSPrint() {
 	queue := new(queue.Queue)
-	var node *Node
+	var node *BinaryTreeNode
 	if b.Root != nil {
 		queue.Enqueue(b.Root)
 	}
 	for queue.Len() != 0 {
-		tmp := queue.Dequeue()
-		node = tmp.(*Node)
+		node := queue.Dequeue().(*BinaryTreeNode)
 		fmt.Println(node.Val)
 		if node.Left != nil {
 			queue.Enqueue(node.Left)
@@ -138,7 +136,7 @@ func (b *BinaryTree) DFSPrint() {
 		stack.Push(b.Root)
 	}
 	for stack.Len() != 0 {
-		node := stack.Pop().(*Node)
+		node := stack.Pop().(*BinaryTreeNode)
 		fmt.Println(node.Val)
 		if node.Right != nil {
 			stack.Push(node.Right)
@@ -160,7 +158,7 @@ func (b *BinaryTree) LevelOrderPrint() {
 	for queue.Len() != 0 {
 		n := queue.Len()
 		for i := 0; i < n; i++ {
-			node := queue.Dequeue().(*Node)
+			node := queue.Dequeue().(*BinaryTreeNode)
 			fmt.Println(node.Val)
 			if node.Left != nil {
 				queue.Enqueue(node.Left)
@@ -177,7 +175,7 @@ func (b *BinaryTree) SumAllNodes() int {
 	return sumAllNodes(b.Root)
 }
 
-func sumAllNodes(node *Node) int {
+func sumAllNodes(node *BinaryTreeNode) int {
 	if node == nil {
 		return 0
 	}
@@ -188,7 +186,7 @@ func sumAllNodes(node *Node) int {
 func (b *BinaryTree) NumberOfLeaves() int {
 	return numberOfLeaves(b.Root)
 }
-func numberOfLeaves(node *Node) int {
+func numberOfLeaves(node *BinaryTreeNode) int {
 	if node == nil {
 		return 0
 	}
@@ -203,7 +201,7 @@ func (b *BinaryTree) Search(val int) bool {
 	return search(b.Root, val)
 }
 
-func search(node *Node, val int) bool {
+func search(node *BinaryTreeNode, val int) bool {
 	var left, right bool
 	if node == nil {
 		return false
@@ -227,7 +225,7 @@ func (b *BinaryTree) TreeDepth() int {
 	return treeDepth(b.Root)
 }
 
-func treeDepth(node *Node) int {
+func treeDepth(node *BinaryTreeNode) int {
 	if node == nil {
 		return 0
 	}
@@ -242,7 +240,7 @@ func treeDepth(node *Node) int {
 }
 
 // IsBalancedTree
-func IsBalanced(node *Node) bool {
+func IsBalanced(node *BinaryTreeNode) bool {
 	if node == nil {
 		return true
 	}
@@ -257,7 +255,7 @@ func IsBalanced(node *Node) bool {
 func (b *BinaryTree) FindMax() int {
 	return findMax(b.Root)
 }
-func findMax(node *Node) int {
+func findMax(node *BinaryTreeNode) int {
 	if node == nil {
 		return math.MinInt32
 	}
@@ -277,7 +275,7 @@ func findMax(node *Node) int {
 func (b *BinaryTree) IsEqual(t2 *BinaryTree) bool {
 	return isEqual(b.Root, t2.Root)
 }
-func isEqual(node1 *Node, node2 *Node) bool {
+func isEqual(node1 *BinaryTreeNode, node2 *BinaryTreeNode) bool {
 	if node1 == nil && node2 == nil {
 		return true
 	}
@@ -293,10 +291,10 @@ func (b *BinaryTree) CopyTree() *BinaryTree {
 	tree2.Root = copyTree(b.Root)
 	return tree2
 }
-func copyTree(node *Node) *Node {
+func copyTree(node *BinaryTreeNode) *BinaryTreeNode {
 	var newNode *Node
 	if node != nil {
-		newNode = new(Node)
+		newNode = new(BinaryTreeNode)
 		newNode.Val = node.Val
 		newNode.Left = copyTree(node.Left)
 		newNode.Right = copyTree(node.Right)
@@ -314,7 +312,7 @@ func (b *BinaryTree) HasPathSum(sum int) bool {
 		return false
 	}
 }
-func hasPathSum(node *Node, sum int) bool {
+func hasPathSum(node *BinaryTreeNode, sum int) bool {
 	if node == nil {
 		return false
 	}
@@ -328,7 +326,7 @@ func hasPathSum(node *Node, sum int) bool {
 }
 
 // MaxDepth
-func maxDepth(node *Node) int {
+func maxDepth(node *BinaryTreeNode) int {
 	if node == nil {
 		return 0
 	}
@@ -353,7 +351,7 @@ const MaxInt = int(MaxUint >> 1)
 const MinInt = -MaxInt - 1
 
 // IsBinarySearchTree
-func IsBinarySearchTree(node *Node, min int, max int) bool {
+func IsBinarySearchTree(node *BinaryTreeNode, min int, max int) bool {
 	if node == nil {
 		return true
 	}
@@ -362,22 +360,4 @@ func IsBinarySearchTree(node *Node, min int, max int) bool {
 		return false
 	}
 	return IsBinarySearchTree(node.Left, min, node.Val) && IsBinarySearchTree(node.Right, node.Val, max)
-}
-
-func main() {
-	arr := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
-	tree := LevelOrderBinaryTree(arr)
-	tree.LevelOrderPrint()
-	fmt.Printf("Sum of all nodes: %d\n", tree.SumAllNodes())
-	fmt.Printf("Number of leaves: %d\n", tree.NumberOfLeaves())
-	fmt.Printf("Is 10 in binary tree? %v\n", tree.Search(10))
-	fmt.Printf("Binary tree depth: %v\n", tree.TreeDepth())
-	tree2 := tree.CopyTree()
-	fmt.Printf("Trees Equal?: %v\n", tree.IsEqual(tree2))
-	fmt.Printf("Max Depth: %v\n", maxDepth(tree.Root))
-	fmt.Printf("Is there a path sum equal to 7: %v\n", tree.HasPathSum(7))
-	fmt.Printf("Is tree valid binary search tree?: %v\n", IsBinarySearchTree(tree.Root, math.MinInt64, math.MaxInt64))
-	fmt.Printf("Is tree balanced?: %v\n", IsBalanced(tree.Root))
-	fmt.Printf("In order traversal: %v\n", InOrderTraversal(tree.Root))
-
 }

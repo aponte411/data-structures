@@ -1,18 +1,18 @@
-package main
+package non_linear
 
 import (
 	"fmt"
 	"math"
 )
 
-type Node struct {
+type BinarySearchTreeNode struct {
 	Val   int
-	Left  *Node
-	Right *Node
+	Left  *BinarySearchTreeNode
+	Right *BinarySearchTreeNode
 }
 
 type BinarySearchTree struct {
-	Root *Node
+	Root *BinarySearchTreeNode
 }
 
 func CreateBinarySearchTree(arr []int) *BinarySearchTree {
@@ -21,12 +21,13 @@ func CreateBinarySearchTree(arr []int) *BinarySearchTree {
 	tree.Root = createBinarySearchTree(arr, 0, size-1)
 	return tree
 }
-func createBinarySearchTree(arr []int, start, end int) *Node {
+
+func createBinarySearchTree(arr []int, start, end int) *BinarySearchTreeNode {
 	if start > end {
 		return nil
 	}
 	mid := start + end // 2
-	node := new(Node)
+	node := new(BinarySearchTreeNode)
 	node.Val = arr[mid]
 	node.Left = createBinarySearchTree(arr, start, mid-1)
 	node.Right = createBinarySearchTree(arr, mid+1, end)
@@ -38,7 +39,7 @@ func (b *BinarySearchTree) InOrderPrint() {
 	fmt.Println("In-order")
 	inOrderPrint(b.Root)
 }
-func inOrderPrint(node *Node) {
+func inOrderPrint(node *BinarySearchTreeNode) {
 	if node == nil {
 		return
 	}
@@ -56,9 +57,10 @@ func inOrderPrint(node *Node) {
 func (b *BinarySearchTree) Add(val int) {
 	b.Root = add(b.Root, val)
 }
-func add(node *Node, val int) *Node {
+
+func add(node *BinarySearchTreeNode, val int) *BinarySearchTreeNode {
 	if node == nil {
-		node := &Node{val, nil, nil}
+		node := &BinarySearchTreeNode{val, nil, nil}
 		return node
 	}
 	if val < node.Val {
@@ -90,7 +92,7 @@ func (b *BinarySearchTree) FindIterative(val int) bool {
 func (b *BinarySearchTree) FindRecursive(val int) bool {
 	return search(b.Root, val)
 }
-func search(node *Node, val int) bool {
+func search(node *BinarySearchTreeNode, val int) bool {
 	if node == nil {
 		return true
 	}
@@ -117,7 +119,7 @@ func (b *BinarySearchTree) FindMin() (int, bool) {
 }
 
 // FindMinNode
-func (b *BinarySearchTree) FindMinNode() *Node {
+func (b *BinarySearchTree) FindMinNode() *BinarySearchTreeNode {
 	node := b.Root
 	if node == nil {
 		fmt.Println("EmptyTreeException")
@@ -150,7 +152,7 @@ func (b *BinarySearchTree) FindMax() (int, bool) {
 // So if the largest element does have a left subtree recurse through the left subtree
 // and find the max. Else weve found the second largest node.
 // O(h) time O(log n) if the BST is balanced; O(h) space (use iterative findmax for constant space)
-func findSecondLargest(root *Node) int {
+func findSecondLargest(root *BinarySearchTreeNode) int {
 	curr := root
 	for curr != nil {
 		// If were at the largest node (rightmost) and there is a left subtree
@@ -172,7 +174,7 @@ func findSecondLargest(root *Node) int {
 // findMaxRecursive
 // O(n) time, O(n) space, iterative has O(1) space since it traverses using
 // variables, e.g. curr = curr.Right
-func findMaxRecursive(root *Node) int {
+func findMaxRecursive(root *BinarySearchTreeNode) int {
 	if root == nil {
 		fmt.Println("EmptyTreeException")
 		return 0
@@ -188,7 +190,7 @@ func findMaxRecursive(root *Node) int {
 }
 
 // FindMaxNode
-func (b *BinarySearchTree) FindMaxNode() *Node {
+func (b *BinarySearchTree) FindMaxNode() *BinarySearchTreeNode {
 	node := b.Root
 	if node == nil {
 		fmt.Println("EmptyTreeException")
@@ -201,7 +203,7 @@ func (b *BinarySearchTree) FindMaxNode() *Node {
 }
 
 // height
-func height(node *Node) int {
+func height(node *BinarySearchTreeNode) int {
 	if node == nil {
 		return 0
 	}
@@ -215,24 +217,11 @@ func height(node *Node) int {
 }
 
 // IsBalanced
-func IsBalanced(node *Node) bool {
+func IsBalanced(node *BinarySearchTreeNode) bool {
 	if node == nil {
 		return true
 	}
 	left := height(node.Left)
 	right := height(node.Right)
 	return math.Abs(float64(left)-float64(right)) < 2 && IsBalanced(node.Left) && IsBalanced(node.Right)
-}
-
-func main() {
-	arr := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
-	tree := CreateBinarySearchTree(arr)
-	tree.Add(66)
-	tree.InOrderPrint()
-	fmt.Printf("Is 66 present in BST? %v\n", tree.FindRecursive(66))
-	fmt.Printf("Min %v\n", tree.FindMinNode().Val)
-	fmt.Printf("Max %v\n", tree.FindMaxNode().Val)
-	fmt.Printf("Is balanced? %v\n", IsBalanced(tree.Root))
-	fmt.Printf("Second largest node %v\n", findSecondLargest(tree.Root))
-
 }

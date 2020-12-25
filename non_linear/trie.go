@@ -1,4 +1,4 @@
-package main
+package non_linear
 
 import "fmt"
 
@@ -66,7 +66,7 @@ func (t *Trie) StartsWith(prefix string) bool {
 
 // Return TopWords
 func (t *Trie) ReturnTopWordsWithPrefix(prefix string) []string {
-    node := t.root
+	node := t.root
 	for i := 0; i < len(prefix); i++ {
 		ch := prefix[i]
 		if _, ok := node.children[ch]; !ok {

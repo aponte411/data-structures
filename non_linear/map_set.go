@@ -1,4 +1,4 @@
-package main
+package non_linear
 
 import "fmt"
 
@@ -14,13 +14,4 @@ func (s *Set) Remove(key interface{}) {
 
 func (s *Set) Find(key interface{}) bool {
 	return (*s)[key]
-}
-
-func main() {
-	set := make(Set)
-	set.Add(1)
-	set.Add(2)
-	fmt.Println(set.Find(1))
-	set.Remove(1)
-	fmt.Println(set.Find(1))
 }
