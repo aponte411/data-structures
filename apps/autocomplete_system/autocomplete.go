@@ -1,11 +1,11 @@
 package autocomplete_system
 
-import "linear/trie"
+import "go-lang-ds/linear"
 
 type AutoCompleteSystem struct {
 	dict map[string]int
 	str  string
-	tr   *trie.TrieNode
+	tr   *linear.trie.TrieNode
 }
 
 func InitAutoCompleteSystem(sentences []string, times []int) AutoCompleteSystem {
@@ -14,7 +14,7 @@ func InitAutoCompleteSystem(sentences []string, times []int) AutoCompleteSystem 
 		dict[sentences[i]] = times[i]
 	}
 	str := ""
-	tr := trie.InitTrie()
+	tr := linear.trie.InitTrie()
 	for i := 0; i < len(sentences); i++ {
 		tr.Insert(sentences[i])
 	}

@@ -1,7 +1,6 @@
-package non_linear
+package trie
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -9,5 +8,8 @@ func TestTrie(t *testing.T) {
 	trie := InitTrie()
 	word := "David"
 	trie.Insert(word)
-	fmt.Println(trie.StartsWith("Da"))
+	res := trie.StartsWith("Da")
+	if !res {
+		t.Errorf("Should be true")
+	}
 }

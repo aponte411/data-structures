@@ -1,6 +1,4 @@
-package non_linear
-
-import "fmt"
+package trie
 
 // Use cases: autocomplete, search, suggestions, etc.
 type TrieNode struct {
@@ -87,11 +85,4 @@ func dfs(node *TrieNode, prefix string, res *[]string) {
 	for child := range node.children {
 		dfs(node.children[child], prefix+string(child), res)
 	}
-}
-
-func main() {
-	trie := InitTrie()
-	word := "David"
-	trie.Insert(word)
-	fmt.Println(trie.StartsWith("Da"))
 }
