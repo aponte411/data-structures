@@ -21,11 +21,12 @@ func (a *ArrayQueue) Enqueue(val interface{}) {
 }
 
 func (a *ArrayQueue) Dequeue() interface{} {
-	if a.size <= 0 {
-		return val
+	if a.size == 0 {
+		fmt.Println("EmptyQueueException")
+		return nil
 	}
 	a.size -= 1
-    val := a.data[a.front]
+	val := a.data[a.front]
 	a.front = (a.front + 1) % (Capacity - 1)
 	return val
 }
@@ -36,4 +37,3 @@ func (a *ArrayQueue) IsEmpty() bool {
 func (a *ArrayQueue) Length() int {
 	return a.size
 }
-

@@ -1,4 +1,4 @@
-package main
+package linear
 
 import (
 	"fmt"
@@ -248,4 +248,3 @@ func (s *SinglyLinkedList) RemoveNthFromEnd(n int) *Node {
 	second.Next = second.Next.Next
 	return dummy.Next
 }
-

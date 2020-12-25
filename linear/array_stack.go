@@ -37,4 +37,3 @@ func (s *StackInt) Pop() int {
 func (s *StackInt) Top() int {
 	return s.items[len(s.items)-1]
 }
-

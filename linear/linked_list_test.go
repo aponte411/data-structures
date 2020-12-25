@@ -1,8 +1,11 @@
 package linear
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
-func TestSLList(t *testing.T){
+func TestSLList(t *testing.T) {
 
 	list := new(SinglyLinkedList)
 	list.AddToHead(1)

@@ -1,7 +1,5 @@
 package linear
 
-import "fmt"
-
 // DLNode: Doubly Linked Node
 type DLNode struct {
 	Val  int
@@ -20,7 +18,7 @@ type DoublyLinkedList struct {
 func (d *DoublyLinkedList) NodeBetweenValues(first, second int) *DLNode {
 	var nodeWith *DLNode
 	for node := d.Head; node != nil; node = node.Next {
-		if node.Prev == first && node.Next == second {
+		if node.Prev.Val == first && node.Next.Val == second {
 			nodeWith = node
 			break
 		}
@@ -69,7 +67,7 @@ func (d *DoublyLinkedList) SortedInsert(val int) {
 	if curr.Next == nil {
 		d.Tail = newNode
 		newNode.Prev = curr
-		curr.Next = NewNode
+		curr.Next = newNode
 	} else {
 		// all other general cases
 		newNode.Next = curr.Next
@@ -90,7 +88,7 @@ func (d *DoublyLinkedList) RemoveHead() (int, bool) {
 	if d.Head == nil {
 		d.Tail = nil
 	} else {
-		d.Head.prev = nil
+		d.Head.Prev = nil
 	}
 	d.count -= 1
 	return val, true
@@ -119,9 +117,9 @@ func (d *DoublyLinkedList) RemoveNode(val int) bool {
 			curr.Next = curr.Next.Next
 			d.count -= 1
 			if curr.Next == nil {
-				d.Last = curr
+				d.Tail = curr
 			} else {
-				d.Last.Prev = curr
+				d.Tail.Prev = curr
 			}
 			return true
 		}

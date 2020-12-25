@@ -1,8 +1,11 @@
 package linear
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
-func TestStack(t *testing.T){
+func TestStack(t *testing.T) {
 	s := new(StackInt)
 	s.Push(1)
 	s.Push(2)
@@ -10,8 +13,8 @@ func TestStack(t *testing.T){
 	for !s.IsEmpty() {
 		fmt.Println(s.Pop())
 	}
-    if !s.IsEmpty() {
-        t.Errorf("Expected empty stack")
-    }
+	if !s.IsEmpty() {
+		t.Errorf("Expected empty stack")
+	}
 
 }

@@ -1,13 +1,15 @@
-package main
+package linear
 
-type Node struct {
+import "fmt"
+
+type QueueNode struct {
 	Val  int
-	Next *Node
+	Next *QueueNode
 }
 
 type QueueLinkedList struct {
-	Head *Node
-	Tail *Node
+	Head *QueueNode
+	Tail *QueueNode
 	size int
 }
 
@@ -20,7 +22,7 @@ func (q *QueueLinkedList) IsEmpty() bool {
 }
 
 func (q *QueueLinkedList) Enqueue(val int) {
-	node := &Node{val, nil}
+	node := &QueueNode{val, nil}
 	if q.Head == nil {
 		q.Head = node
 		q.Tail = node
@@ -29,4 +31,15 @@ func (q *QueueLinkedList) Enqueue(val int) {
 		q.Tail = node
 	}
 	q.size += 1
+}
+
+func (q *QueueLinkedList) Dequeue() int {
+	node := q.Head
+	if node == nil {
+		fmt.Println("EmptyQueueException")
+		return 0
+	}
+	q.Head = q.Head.Next
+	q.size -= 1
+	return node.Val
 }
