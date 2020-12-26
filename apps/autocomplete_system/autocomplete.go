@@ -1,11 +1,11 @@
 package autocomplete_system
 
-import "github.com/aponte411/data-structures/linear/trie"
+import "github.com/aponte411/data-structures/non_linear/trie"
 
 type AutoCompleteSystem struct {
 	dict map[string]int
 	str  string
-	tr   *trie.TrieNode
+	tr   *trie.Trie
 }
 
 func InitAutoCompleteSystem(sentences []string, times []int) AutoCompleteSystem {
@@ -21,7 +21,7 @@ func InitAutoCompleteSystem(sentences []string, times []int) AutoCompleteSystem 
 	return AutoCompleteSystem{
 		dict: dict,
 		str:  str,
-		trie: trie,
+		tr:   tr,
 	}
 }
 

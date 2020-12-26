@@ -1,6 +1,9 @@
 package autocomplete_system
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestAutoCompleteSystem(t *testing.T) {
 	fmt.Println("Testing")
