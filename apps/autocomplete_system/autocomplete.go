@@ -33,6 +33,8 @@ type Result struct {
 	word  string
 }
 
+// h = number of nodes in trie, m = len(topWords),n = len(a.str)
+// O(m log m + h + n) => O(mlogm) time,
 func (a *AutoCompleteSystem) Input(ch string) []string {
 	if ch != "#" {
 		a.str += ch

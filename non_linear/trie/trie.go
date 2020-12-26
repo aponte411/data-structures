@@ -63,6 +63,9 @@ func (t *Trie) StartsWith(prefix string) bool {
 }
 
 // Return TopWords
+// h = number of nodes in trie (height)
+// n = len(prefix); m = len(topWords)
+// O(h + n) time, O(h + m) space
 func (t *Trie) ReturnTopWordsWithPrefix(prefix string) []string {
 	node := t.root
 	for i := 0; i < len(prefix); i++ {
@@ -78,6 +81,7 @@ func (t *Trie) ReturnTopWordsWithPrefix(prefix string) []string {
 }
 
 // DFS
+// h = height of trie, O(h) time; O(h) space
 func TrieDFS(node *TrieNode, prefix string, topWords *[]string) {
 	if node.word {
 		*topWords = append(*topWords, prefix)
