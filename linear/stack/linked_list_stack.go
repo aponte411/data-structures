@@ -1,14 +1,14 @@
-package main
+package stack
 
 import "fmt"
 
-type Node struct {
-	Val  int
-	Next *Node
+type StackNode struct {
+	Val  interface{}
+	Next *StackNode
 }
 
 type StackLinkedList struct {
-	Head *Node
+	Head *StackNode
 	size int
 }
 
@@ -16,33 +16,33 @@ type StackLinkedList struct {
 func (s *StackLinkedList) IsEmpty() bool { return s.size == 0 }
 
 // Peek
-func (s *StackLinkedList) Peek() (int, bool) {
+func (s *StackLinkedList) Peek() interface{} {
 	if s.IsEmpty() {
 		fmt.Println("StackEmptyException")
-		return 0, false
+		return nil
 	}
-	return s.Head.Val, true
+	return s.Head.Val
 }
 
 // Push
 // O(1) time, O(1) space
-func (s *StackLinkedList) Push(val int) {
-	node := &Node{val, s.Head}
+func (s *StackLinkedList) Push(val interface{}) {
+	node := &StackNode{val, s.Head}
 	s.Head = node
 	s.size += 1
 }
 
 // Pop
 // O(1) time, O(1) space
-func (s *StackLinkedList) Pop() (int, bool) {
+func (s *StackLinkedList) Pop() interface{} {
 	if s.IsEmpty() {
 		fmt.Println("StackEmptyException")
-		return 0, false
+		return nil
 	}
 	val := s.Head.Val
 	s.Head = s.Head.Next
 	s.size -= 1
-	return val, true
+	return val
 }
 
 // Print
@@ -54,42 +54,28 @@ func (s *StackLinkedList) Print() {
 }
 
 func IsBalancedParenthesis(expn string) bool {
-	stk := &StackLinkedList{}
-	for _, ch := range expn {
+	stk := new(StackLinkedList)
+	for i := 0; i < len(expn); i++ {
+		ch := string(expn[i])
 		switch ch {
 		case "{", "[", "(":
 			stk.Push(ch)
 		case "}":
-			val := stk.Pop()
+			val := stk.Pop().(string)
 			if val != "{" {
 				return false
 			}
 		case "]":
-			val := stk.Pop()
+			val := stk.Pop().(string)
 			if val != "[" {
 				return false
 			}
 		case ")":
-			val := stk.Pop()
+			val := stk.Pop().(string)
 			if val != "(" {
 				return false
 			}
 		}
 	}
-	return stk.IsEmtpy()
-}
-
-func main() {
-	s := &StackLinkedList{}
-	s.Push(1)
-	s.Push(2)
-	s.Push(3)
-	for !s.IsEmpty() {
-		val, _ := s.Pop()
-		fmt.Println(val)
-	}
-	s.Push(10)
-	s.Push(11)
-	s.Push(12)
-	s.Print()
+	return stk.IsEmpty()
 }

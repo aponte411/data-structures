@@ -1,4 +1,4 @@
-package main
+package linked_list
 
 import (
 	"fmt"
@@ -247,22 +247,4 @@ func (s *SinglyLinkedList) RemoveNthFromEnd(n int) *Node {
 	}
 	second.Next = second.Next.Next
 	return dummy.Next
-}
-
-// main
-func main() {
-	list := &SinglyLinkedList{}
-	list.AddToHead(1)
-	list.AddToHead(2)
-	list.AddToEnd(4)
-	list.AddToEnd(77)
-	list.AddAfter(1, 9)
-	fmt.Printf("Count: %v\n", list.count)
-	list.Iterate()
-	list.Reverse()
-	list.Iterate()
-	list.Reverse()
-	list.Iterate()
-	// reverse print
-	list.ReversePrint(list.Head)
 }

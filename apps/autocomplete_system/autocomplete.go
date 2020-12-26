@@ -1,20 +1,22 @@
 package autocomplete_system
 
+import "github.com/aponte411/data-structures/linear/trie"
+
 type AutoCompleteSystem struct {
 	dict map[string]int
 	str  string
-	trie *TrieNode
+	tr   *trie.TrieNode
 }
 
-func Constructor(sentences []string, times []int) AutoCompleteSystem {
+func InitAutoCompleteSystem(sentences []string, times []int) AutoCompleteSystem {
 	dict := make(map[string]int, 0)
 	for i := 0; i < len(sentences); i++ {
 		dict[sentences[i]] = times[i]
 	}
 	str := ""
-	trie := InitTrie()
+	tr := trie.InitTrie()
 	for i := 0; i < len(sentences); i++ {
-		trie.Insert(sentences[i])
+		tr.Insert(sentences[i])
 	}
 	return AutoCompleteSystem{
 		dict: dict,

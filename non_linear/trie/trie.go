@@ -1,6 +1,4 @@
-package main
-
-import "fmt"
+package trie
 
 // Use cases: autocomplete, search, suggestions, etc.
 type TrieNode struct {
@@ -66,7 +64,7 @@ func (t *Trie) StartsWith(prefix string) bool {
 
 // Return TopWords
 func (t *Trie) ReturnTopWordsWithPrefix(prefix string) []string {
-    node := t.root
+	node := t.root
 	for i := 0; i < len(prefix); i++ {
 		ch := prefix[i]
 		if _, ok := node.children[ch]; !ok {
@@ -87,11 +85,4 @@ func dfs(node *TrieNode, prefix string, res *[]string) {
 	for child := range node.children {
 		dfs(node.children[child], prefix+string(child), res)
 	}
-}
-
-func main() {
-	trie := InitTrie()
-	word := "David"
-	trie.Insert(word)
-	fmt.Println(trie.StartsWith("Da"))
 }

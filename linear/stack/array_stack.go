@@ -1,4 +1,4 @@
-package main
+package stack
 
 import (
 	"fmt"
@@ -36,14 +36,4 @@ func (s *StackInt) Pop() int {
 
 func (s *StackInt) Top() int {
 	return s.items[len(s.items)-1]
-}
-
-func main() {
-	s := &StackInt{}
-	s.Push(1)
-	s.Push(2)
-	s.Push(3)
-	for !s.IsEmpty() {
-		fmt.Println(s.Pop())
-	}
 }
