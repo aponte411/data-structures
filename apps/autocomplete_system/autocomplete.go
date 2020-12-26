@@ -68,7 +68,7 @@ func (a *AutoCompleteSystem) Input(ch string) []string {
 	})
 	// Return top 3 words
 	top3 := make([]string, 0)
-    for i := range results[:3] {
+	for i := range results[:3] {
 		top3 = append(top3, results[i].word)
 	}
 	return top3

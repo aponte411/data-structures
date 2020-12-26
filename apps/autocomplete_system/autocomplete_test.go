@@ -2,8 +2,8 @@ package autocomplete_system
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
-    "reflect"
 )
 
 func TestAutoCompleteSystem(t *testing.T) {
@@ -28,7 +28,7 @@ func TestAutoCompleteSystem(t *testing.T) {
 	}
 	auto := InitAutoCompleteSystem(sentences, times)
 	result := auto.Input(user_input)
-    if !reflect.DeepEqual(result, expected) {
-        t.Errorf("Expected %v, got %v", expected, result)
-    }
+	if !reflect.DeepEqual(result, expected) {
+		t.Errorf("Expected %v, got %v", expected, result)
+	}
 }
