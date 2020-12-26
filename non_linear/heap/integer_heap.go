@@ -1,4 +1,4 @@
-package non_linear
+package heap
 
 type IntegerHeap []int
 
