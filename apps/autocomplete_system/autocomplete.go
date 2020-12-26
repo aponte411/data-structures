@@ -11,6 +11,9 @@ type AutoCompleteSystem struct {
 	tr   *trie.Trie
 }
 
+// n = len(sentences)
+// n sentences, and each insert cost l = len(word)
+// O(n*l) time, O(n*l) space
 func InitAutoCompleteSystem(sentences []string, times []int) AutoCompleteSystem {
 	dict := make(map[string]int, 0)
 	for i := 0; i < len(sentences); i++ {
