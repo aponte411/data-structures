@@ -73,13 +73,13 @@ func (t *Trie) ReturnTopWordsWithPrefix(prefix string) []string {
 		node = node.children[ch]
 	}
 	topWords := make([]string, 0)
-	dfs(node, prefix, &topWords)
+	TrieDFS(node, prefix, &topWords)
 	return topWords
 }
 
 // DFS
-func dfs(node *TrieNode, prefix string, topWords *[]string) {
-	if node == nil {
+func TrieDFS(node *TrieNode, prefix string, topWords *[]string) {
+	if node.word {
 		*topWords = append(*topWords, prefix)
 	}
 	for ch := range node.children {
@@ -87,6 +87,6 @@ func dfs(node *TrieNode, prefix string, topWords *[]string) {
 		// character to slice. Then convert back to string
 		newPrefix := string(append([]byte(prefix), ch))
 		// Recurse through child node and add child to prefix
-		dfs(node.children[ch], newPrefix, topWords)
+		TrieDFS(node.children[ch], newPrefix, topWords)
 	}
 }
