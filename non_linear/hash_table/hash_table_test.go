@@ -1,7 +1,6 @@
-package non_linear
+package hash_table
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -13,5 +12,9 @@ func TestHashTable(t *testing.T) {
 	hashtable.Add(2, 20)
 	hashtable.Add(3, 30)
 	hashtable.Print()
-	fmt.Println(hashtable.Get(1))
+
+	res := hashtable.Get(1)
+	if res != 10 {
+		t.Errorf("Expected 10 got %v", res)
+	}
 }

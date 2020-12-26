@@ -1,6 +1,8 @@
-package non_linear
+package hash_table
 
 import "fmt"
+
+const MaxSize = 769
 
 // HashTable using separate chaining to deal with hash collisions
 type HashTable struct {
@@ -16,7 +18,7 @@ type Node struct {
 
 // Init method
 func (h *HashTable) Init() {
-	h.size = 769 // something prime
+	h.size = MaxSize // something prime
 	h.array = make([]*Node, h.size)
 	// zero value of nil instead of 0
 	for i := 0; i < h.size; i++ {
