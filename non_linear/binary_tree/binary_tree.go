@@ -1,4 +1,4 @@
-package non_linear
+package binary_tree
 
 import (
 	"fmt"
