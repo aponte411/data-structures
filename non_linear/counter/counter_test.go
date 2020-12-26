@@ -1,7 +1,6 @@
-package non_linear
+package counter
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -10,6 +9,13 @@ func TestCounter(t *testing.T) {
 	counter.Add("a")
 	counter.Add("b")
 	counter.Add("a")
-	fmt.Println(counter.Find("a"))
-	fmt.Println(counter.Get("a"))
+	res1 := counter.Find("a")
+	if !res1 {
+		t.Errorf("Expected a to in counter, %v", res1)
+	}
+
+	res2, _ := counter.Get("a")
+	if res2 != 2 {
+		t.Errorf("Expected a, got %v", res2)
+	}
 }

@@ -1,4 +1,4 @@
-package non_linear
+package counter
 
 type Counter map[interface{}]int
 
