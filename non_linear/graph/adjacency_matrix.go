@@ -28,7 +28,7 @@ func (a *AdjacencyMatrixGraph) Print() {
 	for i := 0; i < a.count; i++ {
 		for j := 0; j < a.count; j++ {
 			if a.adj[i][j] != 0 {
-				fmt.Println(a.adj[i][j])
+				fmt.Printf("Node %v is connected to: %v\n", i, j)
 			}
 		}
 	}
