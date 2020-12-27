@@ -2,11 +2,21 @@ package graph
 
 import "fmt"
 
+/*
+Pros:
+1. Queries to see if there is an edge between u and v is O(1) time
+2. Removing an edge takes O(1) time
+Cons:
+1. Space is quadratic
+2. Adding a verted takes O(n^2) time
+*/
+
 type AdjacencyMatrixGraph struct {
 	count int
 	adj   [][]int
 }
 
+// O(n) time, O(n^2) space complexity
 func (a *AdjacencyMatrixGraph) Init(count int) {
 	a.count = count
 	a.adj = make([][]int, count)
