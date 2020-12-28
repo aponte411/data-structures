@@ -43,3 +43,11 @@ func (q *QueueLinkedList) Dequeue() interface{} {
 	q.size -= 1
 	return node.Val
 }
+
+func (q *QueueLinkedList) Peek() interface{} {
+	if q.Head == nil {
+		fmt.Println("EmptyQueueException")
+		return nil
+	}
+	return q.Head.Val
+}

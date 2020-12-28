@@ -11,4 +11,8 @@ func TestQueueLinkedList(t *testing.T) {
 	if res != 1 {
 		t.Errorf("Expected 1, got %v", res)
 	}
+	head := queue.Peek().(int)
+	if head != 2 {
+		t.Errorf("Expected 1, got %v", head)
+	}
 }
