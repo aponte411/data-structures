@@ -45,3 +45,22 @@ func (a *AdjacencyListGraph) Print() {
 		}
 	}
 }
+
+// DFS find bath between src and dst
+// O(V + E) time, O(V + E)
+func (a *AdjacencyListGraph) DFSFindPathBetween(src, dst int) bool {
+	visited := make([]bool, a.count)
+	a.DFS(src, visited)
+	return visited[dst]
+}
+
+func (a *AdjacencyListGraph) DFS(src int, visited []bool) {
+	visited[src] = true
+	head := a.edges[src]
+	for head != nil {
+		if visited[head.dst] == false {
+			a.DFS(head.dst, visited)
+		}
+		head = head.next
+	}
+}
