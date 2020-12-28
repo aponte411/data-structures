@@ -2,6 +2,7 @@ package binary_tree
 
 import (
 	"fmt"
+	que "github.com/aponte411/data-structures/linear/queue"
 	"github.com/golang-collections/collections/queue"
 	"github.com/golang-collections/collections/stack"
 	"math"
@@ -360,4 +361,38 @@ func IsBinarySearchTree(node *BinaryTreeNode, min int, max int) bool {
 		return false
 	}
 	return IsBinarySearchTree(node.Left, min, node.Val) && IsBinarySearchTree(node.Right, node.Val, max)
+}
+
+// TmpNode struct to store node and level, kind of like a tuple
+type TmpNode struct {
+	node  *BinaryTreeNode
+	level int
+}
+
+func (b *BinaryTree) FindMaxWidth() int {
+	root := b.Root
+	q := new(que.QueueLinkedList)
+	q.Enqueue(TmpNode{root, 0})
+	maxWidth := 0
+	var root_level, level int
+	for !q.IsEmpty() {
+		root_node := q.Peek().(TmpNode)
+		root_level = root_node.level
+		for i := 0; i < q.Size(); i++ {
+			tmpnode := q.Dequeue().(TmpNode)
+			level = tmpnode.level
+			node := tmpnode.node
+			if node.Left != nil {
+				q.Enqueue(TmpNode{node.Left, 2 * level})
+			}
+			if node.Right != nil {
+				q.Enqueue(TmpNode{node.Right, 2*level + 1})
+			}
+		}
+		width := level - root_level + 1
+		if width > maxWidth {
+			maxWidth = width
+		}
+	}
+	return maxWidth
 }

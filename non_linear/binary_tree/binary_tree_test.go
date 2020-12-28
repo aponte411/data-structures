@@ -37,6 +37,11 @@ func TestBinaryTree(t *testing.T) {
 		t.Errorf("Trees should be equal, %v", res5)
 	}
 
+	res6 := tree.FindMaxWidth()
+	if res6 != 2 {
+		t.Errorf("Expected 2, got %v", res6)
+	}
+
 	fmt.Printf("Max Depth: %v\n", maxDepth(tree.Root))
 	fmt.Printf("Is there a path sum equal to 7: %v\n", tree.HasPathSum(7))
 	fmt.Printf("Is tree valid binary search tree?: %v\n", IsBinarySearchTree(tree.Root, math.MinInt64, math.MaxInt64))
