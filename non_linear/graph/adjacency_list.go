@@ -10,7 +10,7 @@ type AdjacencyListEdge struct {
 
 type AdjacencyListGraph struct {
 	count int
-	edges []*AdjacencyListEdge
+	edges []*AdjacencyListEdge // Can be map instead of slice for node keys that are string type
 }
 
 func (a *AdjacencyListGraph) Init(count int) {
@@ -40,9 +40,8 @@ func (a *AdjacencyListGraph) Print() {
 	for i := 0; i < a.count; i++ {
 		node := a.edges[i]
 		for node != nil {
-			fmt.Printf("Node %v, is connected to %v", i, node.dst)
+			fmt.Printf("Node %v, is connected to %v\n", i, node.dst)
 			node = node.next
 		}
-		fmt.Println("")
 	}
 }
