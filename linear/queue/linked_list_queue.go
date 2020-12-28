@@ -3,7 +3,7 @@ package queue
 import "fmt"
 
 type QueueNode struct {
-	Val  int
+	Val  interface{}
 	Next *QueueNode
 }
 
@@ -21,7 +21,7 @@ func (q *QueueLinkedList) IsEmpty() bool {
 	return q.size == 0
 }
 
-func (q *QueueLinkedList) Enqueue(val int) {
+func (q *QueueLinkedList) Enqueue(val interface{}) {
 	node := &QueueNode{val, nil}
 	if q.Head == nil {
 		q.Head = node
@@ -33,11 +33,11 @@ func (q *QueueLinkedList) Enqueue(val int) {
 	q.size += 1
 }
 
-func (q *QueueLinkedList) Dequeue() int {
+func (q *QueueLinkedList) Dequeue() interface{} {
 	node := q.Head
 	if node == nil {
 		fmt.Println("EmptyQueueException")
-		return 0
+		return nil
 	}
 	q.Head = q.Head.Next
 	q.size -= 1

@@ -2,6 +2,7 @@ package graph
 
 import (
 	"fmt"
+	que "github.com/aponte411/data-structures/linear/queue"
 	stk "github.com/aponte411/data-structures/linear/stack"
 )
 
@@ -80,6 +81,25 @@ func (a *AdjacencyListGraph) DFSStackFindPathBetween(src, dst int) bool {
 			if visited[head.dst] == false {
 				visited[head.dst] = true
 				stack.Push(head.dst)
+			}
+			head = head.next
+		}
+	}
+	return visited[dst]
+}
+
+func (a *AdjacencyListGraph) BFSFindPathBetween(src, dst int) bool {
+	visited := make([]bool, a.count)
+	queue := new(que.QueueLinkedList)
+	visited[src] = true
+	queue.Enqueue(src)
+	for !queue.IsEmpty() {
+		curr := queue.Dequeue().(int)
+		head := a.edges[curr]
+		for head != nil {
+			if visited[head.dst] == false {
+				visited[head.dst] = true
+				queue.Enqueue(head.dst)
 			}
 			head = head.next
 		}
