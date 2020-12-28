@@ -17,8 +17,12 @@ func TestAdjListGraph(t *testing.T) {
 	g.AddUndirectedUnweightedEdge(5, 7)
 	g.AddUndirectedUnweightedEdge(4, 7)
 	g.Print()
-	res := g.DFSFindPathBetween(0, 6)
-	if !res {
-		t.Errorf("Expected path between node 0 and node 6, %v", res)
+	res1 := g.DFSFindPathBetween(0, 6)
+	res2 := g.DFSStackFindPathBetween(0, 6)
+	if !res1 {
+		t.Errorf("Expected path between node 0 and node 6, %v", res1)
+	}
+	if !res2 {
+		t.Errorf("Expected path between node 0 and node 6, %v", res2)
 	}
 }

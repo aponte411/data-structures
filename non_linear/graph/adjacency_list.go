@@ -1,6 +1,9 @@
 package graph
 
-import "fmt"
+import (
+	"fmt"
+	stk "github.com/aponte411/data-structures/linear/stack"
+)
 
 type AdjacencyListEdge struct {
 	dst  int
@@ -63,4 +66,23 @@ func (a *AdjacencyListGraph) DFS(src int, visited []bool) {
 		}
 		head = head.next
 	}
+}
+
+func (a *AdjacencyListGraph) DFSStackFindPathBetween(src, dst int) bool {
+	visited := make([]bool, a.count)
+	stack := new(stk.StackLinkedList)
+	visited[src] = true
+	stack.Push(src)
+	for !stack.IsEmpty() {
+		curr := stack.Pop().(int)
+		head := a.edges[curr]
+		for head != nil {
+			if visited[head.dst] == false {
+				visited[head.dst] = true
+				stack.Push(head.dst)
+			}
+			head = head.next
+		}
+	}
+	return visited[dst]
 }
