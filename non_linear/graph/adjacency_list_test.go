@@ -1,6 +1,7 @@
 package graph
 
 import (
+	"reflect"
 	"testing"
 )
 
@@ -25,4 +26,18 @@ func TestAdjListGraph(t *testing.T) {
 	if !res2 {
 		t.Errorf("Expected path between node 0 and node 6, %v", res2)
 	}
+	g2 := new(AdjacencyListGraph)
+	g2.Init(6)
+	g2.AddDirectedUnweightedEdge(5, 2)
+	g2.AddDirectedUnweightedEdge(5, 0)
+	g2.AddDirectedUnweightedEdge(4, 0)
+	g2.AddDirectedUnweightedEdge(4, 1)
+	g2.AddDirectedUnweightedEdge(2, 3)
+	g2.AddDirectedUnweightedEdge(3, 1)
+	exp3 := []int{5, 4, 2, 3, 1, 0}
+	res3 := g2.TopologicalSort()
+	if !reflect.DeepEqual(res3, exp3) {
+		t.Errorf("Expected %v, got %v", exp3, res3)
+	}
+
 }
