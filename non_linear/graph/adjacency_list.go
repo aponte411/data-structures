@@ -106,3 +106,29 @@ func (a *AdjacencyListGraph) BFSFindPathBetween(src, dst int) bool {
 	}
 	return visited[dst]
 }
+
+// TODO: FIX
+func (a *AdjacencyListGraph) TopologicalSort() {
+	stack := new(stk.StackLinkedList)
+	visited := make([]bool, a.count)
+	for i := 0; i < a.count; i++ {
+		if visited[i] == false {
+			visited[i] = true
+			a.TopologicalSortDFS(i, visited, stack)
+		}
+	}
+	for !stack.IsEmpty() {
+		fmt.Println(stack.Pop().(int))
+	}
+}
+
+func (a *AdjacencyListGraph) TopologicalSortDFS(index int, visited []bool, indexStack stk.StackLinkedList) {
+	head := a.edges[index]
+	for head != nil {
+		if visited[head.dst] == false {
+			visited[head.dst] = true
+			a.TopologicalSortDFS(head.dst, visited, indexStack)
+		}
+	}
+	indexStack.Push(index)
+}
