@@ -10,11 +10,11 @@ https://flaviocopes.com/golang-data-structure-graph/
 */
 
 type GraphNode struct {
-	Val  interface{}
+	Val interface{}
 }
 
 func (n *GraphNode) String() string {
-    return fmt.Sprintf("%v", n.Val)
+	return fmt.Sprintf("%v", n.Val)
 }
 
 type Graph struct {
@@ -25,8 +25,8 @@ type Graph struct {
 }
 
 func (g *Graph) AddNode(node *GraphNode) {
-	g.Count += 1
 	g.lock.Lock()
+	g.Count += 1
 	g.Nodes = append(g.Nodes, node)
 	g.lock.Unlock()
 }
@@ -36,8 +36,8 @@ func (g *Graph) AddEdge(src, dst *GraphNode) {
 	if g.Edges == nil {
 		g.Edges = make(map[GraphNode][]*GraphNode)
 	}
-	g.Edges[*src] = append(g.Edges[*src], src)
-	g.Edges[*dst] = append(g.Edges[*dst], dst)
+	g.Edges[*src] = append(g.Edges[*src], dst)
+	g.Edges[*dst] = append(g.Edges[*dst], src)
 	g.lock.Unlock()
 }
 
