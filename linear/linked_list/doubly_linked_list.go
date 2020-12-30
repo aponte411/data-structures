@@ -13,82 +13,56 @@ type DoublyLinkedList struct {
 	Count int
 }
 
-// NodeBetweenValues
-// O(N) time, O(1) space
-func (d *DoublyLinkedList) NodeBetweenValues(first, second int) *DLNode {
-	var nodeWith *DLNode
-	for node := d.Head; node != nil; node = node.Next {
-		if node.Prev.Val == first && node.Next.Val == second {
-			nodeWith = node
-			break
-		}
-	}
-	return nodeWith
-}
-
 // AddToHead method
 // O(1) time, O(1) space
 func (d *DoublyLinkedList) AddToHead(val interface{}) {
-	newNode := &DLNode{val, nil, nil}
+	node := &DoublyLinkedNode{val, nil, nil}
 	if d.Count == 0 {
-		d.Tail = newNode
-		d.Head = newNode
+		d.Tail = node
+		d.Head = node
 	} else {
-		d.Head.Prev = newNode
-		newNode.Next = d.Head
-		d.Head = newNode
+		d.Head.Prev = node
+		node.Next = d.Head
+		d.Head = node
 	}
 	d.Count += 1
 }
 
-// SortedInsert method
-// O(N) time, O(1) space
-func (d *DoublyLinkedList) SortedInsert(val interface{}) {
-	newNode := &DLNode{val, nil, nil}
-	d.Count += 1
-	curr := d.Head
-	// if val is first element
-	if curr == nil {
-		d.Tail = newNode
-		d.Head = newNode
-	}
-	// if val is at beginning
-	if curr.Val <= val {
-		// make newNode head
-		newNode.Next = d.Head
-		d.Head.Prev = newNode
-		d.Head = newNode
-	}
-
-	for curr.Next != nil && curr.Val > val {
-		curr = curr.Next
-	}
-	// modify tail
-	if curr.Next == nil {
-		d.Tail = newNode
-		newNode.Prev = curr
-		curr.Next = newNode
+func (d *DoublyLinkedList) AddToTail(val interface{}) {
+	node := &DoublyLinkedNode{val, nil, nil}
+	if d.Count == 0 {
+		d.Tail = node
+		d.Head = node
 	} else {
-		// all other general cases
-		newNode.Next = curr.Next
-		newNode.Prev = curr
-		curr.Next = newNode
-		newNode.Next.Prev = newNode
+		d.Tail.Next = node
+		node.Prev = d.Tail
+		d.Tail = node
 	}
+	d.Count += 1
 }
 
 // RemoveHead
 // O(1) time, O(1) space
 func (d *DoublyLinkedList) RemoveHead() bool {
-	if d.count == 0 {
+	if d.Count == 0 {
 		return false
 	}
-	val := d.Head.Val
-	d.Head = d.Head.Next
-    if d.Head == nil {
-		d.Tail = nil
-	} else {
-		d.Head.Prev = nil
+	node := d.Head
+	if node.Next != nil {
+		d.Head = d.Head.Next
+	}
+
+	d.Count -= 1
+	return true
+}
+
+func (d *DoublyLinkedList) RemoveTail() bool {
+	if d.Count == 0 {
+		return false
+	}
+	node := d.Tail
+	if node.Prev != nil {
+		d.Tail = node.Prev
 	}
 	d.Count -= 1
 	return true
@@ -103,7 +77,7 @@ func (d *DoublyLinkedList) RemoveNode(val interface{}) bool {
 	}
 	if curr.Val == val {
 		curr = curr.Next
-		d.count -= 1
+		d.Count -= 1
 		if curr != nil {
 			d.Head = curr
 			d.Head.Prev = nil
