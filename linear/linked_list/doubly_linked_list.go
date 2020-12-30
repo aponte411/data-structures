@@ -1,16 +1,16 @@
 package linked_list
 
 // DLNode: Doubly Linked Node
-type DLNode struct {
-	Val  int
-	Prev *DLNode
-	Next *DLNode
+type DoublyLinkedNode struct {
+	Val  interface{}
+	Prev *DoublyLinkedNode
+	Next *DoublyLinkedNode
 }
 
 type DoublyLinkedList struct {
-	Head  *DLNode
-	Tail  *DLNode
-	count int
+	Head  *DoublyLinkedNode
+	Tail  *DoublyLinkedNode
+	Count int
 }
 
 // NodeBetweenValues
@@ -28,9 +28,9 @@ func (d *DoublyLinkedList) NodeBetweenValues(first, second int) *DLNode {
 
 // AddToHead method
 // O(1) time, O(1) space
-func (d *DoublyLinkedList) AddToHead(val int) {
+func (d *DoublyLinkedList) AddToHead(val interface{}) {
 	newNode := &DLNode{val, nil, nil}
-	if d.count == 0 {
+	if d.Count == 0 {
 		d.Tail = newNode
 		d.Head = newNode
 	} else {
@@ -38,14 +38,14 @@ func (d *DoublyLinkedList) AddToHead(val int) {
 		newNode.Next = d.Head
 		d.Head = newNode
 	}
-	d.count += 1
+	d.Count += 1
 }
 
 // SortedInsert method
 // O(N) time, O(1) space
-func (d *DoublyLinkedList) SortedInsert(val int) {
+func (d *DoublyLinkedList) SortedInsert(val interface{}) {
 	newNode := &DLNode{val, nil, nil}
-	d.count += 1
+	d.Count += 1
 	curr := d.Head
 	// if val is first element
 	if curr == nil {
@@ -79,24 +79,24 @@ func (d *DoublyLinkedList) SortedInsert(val int) {
 
 // RemoveHead
 // O(1) time, O(1) space
-func (d *DoublyLinkedList) RemoveHead() (int, bool) {
+func (d *DoublyLinkedList) RemoveHead() bool {
 	if d.count == 0 {
-		return 0, false
+		return false
 	}
 	val := d.Head.Val
 	d.Head = d.Head.Next
-	if d.Head == nil {
+    if d.Head == nil {
 		d.Tail = nil
 	} else {
 		d.Head.Prev = nil
 	}
-	d.count -= 1
-	return val, true
+	d.Count -= 1
+	return true
 }
 
 // RemoveNode method
 // O(N) time, O(1) space
-func (d *DoublyLinkedList) RemoveNode(val int) bool {
+func (d *DoublyLinkedList) RemoveNode(val interface{}) bool {
 	curr := d.Head
 	if curr == nil {
 		return false
@@ -115,7 +115,7 @@ func (d *DoublyLinkedList) RemoveNode(val int) bool {
 	for curr.Next != nil {
 		if curr.Next.Val == val {
 			curr.Next = curr.Next.Next
-			d.count -= 1
+			d.Count -= 1
 			if curr.Next == nil {
 				d.Tail = curr
 			} else {
