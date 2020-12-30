@@ -2,8 +2,6 @@ package graph
 
 import (
 	"fmt"
-	que "github.com/aponte411/data-structures/linear/queue"
-	stk "github.com/aponte411/data-structures/linear/stack"
 	"sync"
 )
 
@@ -12,8 +10,11 @@ https://flaviocopes.com/golang-data-structure-graph/
 */
 
 type GraphNode struct {
-	val  interface{}
-	cost int
+	Val  interface{}
+}
+
+func (n *GraphNode) String() string {
+    return fmt.Sprintf("%v", n.Val)
 }
 
 type Graph struct {
@@ -41,7 +42,7 @@ func (g *Graph) AddEdge(src, dst *GraphNode) {
 }
 
 func (g *Graph) Print() {
-	g.lock.Rlock()
+	g.lock.RLock()
 	s := ""
 	for i := 0; i < g.Count; i++ {
 		node := g.Nodes[i]
