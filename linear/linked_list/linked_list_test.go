@@ -12,7 +12,7 @@ func TestSLList(t *testing.T) {
 	list.AddToEnd(4)
 	list.AddToEnd(77)
 	list.AddAfter(1, 9)
-	res := list.count
+	res := list.Count
 	if res != 5 {
 		t.Errorf("Expected 5 nodes in singly linked list, got %v", res)
 	}

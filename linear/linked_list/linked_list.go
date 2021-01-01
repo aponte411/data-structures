@@ -6,20 +6,20 @@ import (
 
 // Singly linked list node
 type Node struct {
-	Val  int
+	Val  interface{}
 	Next *Node
 }
 
 // Singly linked list
 type SinglyLinkedList struct {
 	Head  *Node
-	count int
+	Count int
 }
 
 // AddToHead method
-func (s *SinglyLinkedList) AddToHead(val int) {
+func (s *SinglyLinkedList) AddToHead(val interface{}) {
 	node := &Node{val, nil}
-	s.count += 1
+	s.Count += 1
 	if s.Head != nil {
 		node.Next = s.Head
 	}
@@ -28,14 +28,13 @@ func (s *SinglyLinkedList) AddToHead(val int) {
 
 // RemoveHead method
 // O(1) time, O(1) space
-func (s *SinglyLinkedList) RemoveHead() (int, bool) {
-	if s.count == 0 {
-		return 0, false
+func (s *SinglyLinkedList) RemoveHead() bool {
+	if s.Count == 0 {
+		return false
 	}
-	val := s.Head.Val
 	s.Head = s.Head.Next
-	s.count -= 1
-	return val, true
+	s.Count -= 1
+	return true
 
 }
 
@@ -62,12 +61,10 @@ func (s *SinglyLinkedList) LastNode() *Node {
 
 // AddToEnd method
 // O(N) time, O(1) space
-func (s *SinglyLinkedList) AddToEnd(val int) {
+func (s *SinglyLinkedList) AddToEnd(val interface{}) {
 	node := &Node{val, nil}
-	s.count += 1
-
-	var last *Node
-	last = s.LastNode()
+	s.Count += 1
+	last := s.LastNode()
 	if last != nil {
 		last.Next = node
 	}
@@ -75,7 +72,7 @@ func (s *SinglyLinkedList) AddToEnd(val int) {
 
 // Find method
 // O(N) time, O(1) space
-func (s *SinglyLinkedList) Find(val int) bool {
+func (s *SinglyLinkedList) Find(val interface{}) bool {
 	for node := s.Head; node != nil; node = node.Next {
 		if node.Val == val {
 			return true
@@ -86,7 +83,7 @@ func (s *SinglyLinkedList) Find(val int) bool {
 
 // NodeWithValue method
 // O(N) time, O(1) space
-func (s *SinglyLinkedList) NodeWithValue(val int) *Node {
+func (s *SinglyLinkedList) NodeWithValue(val interface{}) *Node {
 	var nodeWith *Node
 	for node := s.Head; node != nil; node = node.Next {
 		if node.Val == val {
@@ -98,12 +95,10 @@ func (s *SinglyLinkedList) NodeWithValue(val int) *Node {
 }
 
 // AddAfter method
-func (s *SinglyLinkedList) AddAfter(nodeVal, val int) {
+func (s *SinglyLinkedList) AddAfter(nodeVal, val interface{}) {
 	node := &Node{val, nil}
-	s.count += 1
-
-	var nodeWith *Node
-	nodeWith = s.NodeWithValue(nodeVal)
+	s.Count += 1
+	nodeWith := s.NodeWithValue(nodeVal)
 	if nodeWith != nil {
 		node.Next = nodeWith.Next
 		nodeWith.Next = node
@@ -112,21 +107,21 @@ func (s *SinglyLinkedList) AddAfter(nodeVal, val int) {
 
 // DeleteNode method
 // O(N) time and O(1) space
-func (s *SinglyLinkedList) DeleteNode(val int) bool {
+func (s *SinglyLinkedList) DeleteNode(val interface{}) bool {
 	// if list is empty return false
-	if s.count == 0 {
+	if s.Count == 0 {
 		return false
 	}
 	if val == s.Head.Val {
 		s.Head = s.Head.Next
-		s.count -= 1
+		s.Count -= 1
 		return true
 	}
 
 	for node := s.Head; node != nil; node = node.Next {
 		if node.Next.Val == val {
 			node.Next = node.Next.Next
-			s.count -= 1
+			s.Count -= 1
 			return true
 		}
 	}
@@ -176,31 +171,13 @@ func (s *SinglyLinkedList) reverseHelper(curr *Node, next *Node) *Node {
 	return resultNode
 }
 
-// SortedInsert
-// O(N) time, O(1) space
-func (s *SinglyLinkedList) SortedInsert(val int) {
-	node := &Node{val, nil}
-	curr := s.Head
-	if curr == nil || curr.Val > val {
-		node.Next = s.Head
-		s.Head = node
-		return
-	}
-	for curr.Next != nil && curr.Next.Val < val {
-		curr = curr.Next
-	}
-	node.Next = curr.Next
-	curr.Next = node
-	s.count += 1
-}
-
 // RemoveDuplicates
 // O(N) time, O(1) space
 func (s *SinglyLinkedList) RemoveDuplicates() {
 	for curr := s.Head; curr != nil; curr = curr.Next {
 		if curr.Next != nil && curr.Val == curr.Next.Val {
 			curr.Next = curr.Next.Next
-			s.count -= 1
+			s.Count -= 1
 			return
 		}
 	}
@@ -223,7 +200,7 @@ func (s *SinglyLinkedList) HasCycle() bool {
 // O(N-k) time, O(1) space
 func (s *SinglyLinkedList) KtoLastNode(k int) *Node {
 	node := s.Head
-	kToLast := s.count - k
+	kToLast := s.Count - k
 	for i := 0; i < kToLast; i++ {
 		node = node.Next
 	}
